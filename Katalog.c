@@ -7,3 +7,7 @@ void usunCalyKatalog(Katalog* katalog)
 {
     /*TODO*/
 }
+void dodajSamochod(Katalog* katalog)
+{
+    /*TODO*/
+}

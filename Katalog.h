@@ -22,6 +22,8 @@ typedef struct
     ElListyKatalog* ostatni_;
 }Katalog;
 void usunCalyKatalog(Katalog* katalog);
+void dodajSamochod(Katalog* katalog);
+
 #ifndef PRI_PROJECT_3_KATALOG_H
 #define PRI_PROJECT_3_KATALOG_H
 #endif /*PRI_PROJECT_3_KATALOG_H*/

@@ -118,3 +118,13 @@ void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu)
     free(element);
     bazaSamochodow->dlugosc_--;
 }
+Katalog* zwrocNtyKatalog(BazaSamochodow* bazaSamochodow, int nrElementu)
+{
+    int i;
+    ElListyBaza* element=bazaSamochodow->pierwszy_;
+    for(i=1;i<nrElementu;i++)
+    {
+        element=element->nastepny_;
+    }
+    return element->katalog_;
+}
