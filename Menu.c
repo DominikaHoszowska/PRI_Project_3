@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <memory.h>
 #include "Menu.h"
+#include "BazaSamochodow.h"
+
 void menu(BazaSamochodow* bazaSamochodow)
 {
     printf("Menu:\n"
@@ -87,7 +89,7 @@ void tworzenieKatalogu(BazaSamochodow* bazaSamochodow)
     {
         if(!czyUnikalnyKatalog(bazaSamochodow,katalog))
         {
-            printf("Nazwa nie jest unikalna");
+            printf("Nazwa nie jest unikalna\n");
             tworzenieKatalogu(bazaSamochodow);
         }
         else
@@ -145,7 +147,8 @@ void wyswietlanieListyKatalogow(BazaSamochodow* bazaSamochodow)
     int i=1;
     while(element)
     {
-        printf("%d.%s\n",element->katalog_->nazwa_);
+        printf("%d.%s\n",i,element->katalog_->nazwa_);
+        element=element->nastepny_;
         i++;
     }
 

@@ -26,17 +26,16 @@ void stworzKatalog(BazaSamochodow* bazaSamochodow, char nazwa[]) {
     katalog->pierwszy_ = NULL;
     katalog->ostatni_ = NULL;
     ElListyBaza *elListyBaza = (ElListyBaza *) malloc(sizeof(ElListyBaza));
+    elListyBaza->katalog_=katalog;
     if(bazaSamochodow->dlugosc_) {
         ElListyBaza *ostatni = bazaSamochodow->ostatni_;
         ostatni->nastepny_ = elListyBaza;
         elListyBaza->poprzedni_ = bazaSamochodow->ostatni_;
-        bazaSamochodow->dlugosc_++;
     }
     else
     {
         elListyBaza->poprzedni_=NULL;
         bazaSamochodow->pierwszy_=elListyBaza;
-        bazaSamochodow->ostatni_=elListyBaza;
 
     }
 

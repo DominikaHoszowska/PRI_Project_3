@@ -9,19 +9,21 @@
 
 #include "Katalog.h"
 
-typedef struct
+struct ElListyBaza_t
 {
     Katalog* katalog_;
-    struct ElListyBaza* nastepny_;
-    struct ElListyBaza* poprzedni_;
+    struct ElListyBaza_t* nastepny_;
+    struct ElListyBaza_t* poprzedni_;
 
-}ElListyBaza;
+};
+
+typedef struct ElListyBaza_t ElListyBaza;
 
 typedef struct
 {
     int dlugosc_;
-    struct ElListyBaza* pierwszy_;
-    struct ElListyBaza* ostatni_;
+    ElListyBaza* pierwszy_;
+    ElListyBaza* ostatni_;
 }BazaSamochodow;
 
 bool czyUnikalnyKatalog(BazaSamochodow* bazaSamochodow,char katalog[]);
