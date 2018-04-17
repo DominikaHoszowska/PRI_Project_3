@@ -1,7 +1,9 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include <stdio.h>
 #include <memory.h>
+#include <malloc.h>
 #include "Menu.h"
+#include "BazaSamochodow.h"
 
 void menu(BazaSamochodow* bazaSamochodow)
 {
@@ -194,10 +196,7 @@ void zamykanie( BazaSamochodow* bazaSamochodow)
     }
     menu(bazaSamochodow);
 }
-void usunWszystko(BazaSamochodow* bazaSamochodow)
-{
-    /*TODO*/
-}
+
 void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow)
 {
     ElListyBaza* element=bazaSamochodow->pierwszy_;

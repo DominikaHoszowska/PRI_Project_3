@@ -21,7 +21,7 @@ typedef struct
     ElListyKatalog* pierwszy_;
     ElListyKatalog* ostatni_;
 }Katalog;
-
+void usunCalyKatalog(Katalog* katalog);
 #ifndef PRI_PROJECT_3_KATALOG_H
 #define PRI_PROJECT_3_KATALOG_H
 #endif /*PRI_PROJECT_3_KATALOG_H*/

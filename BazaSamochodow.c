@@ -92,3 +92,15 @@ void zminaNazwyKatalogu(BazaSamochodow* bazaSamochodow,Katalog* katalog)
             strcpy(katalog->nazwa_,nazwa);
         }}
 }
+void usunWszystko(BazaSamochodow* bazaSamochodow)
+{
+    ElListyBaza* elem=bazaSamochodow->pierwszy_;
+    while(elem)
+    {
+        bazaSamochodow->pierwszy_=elem->nastepny_;
+        usunCalyKatalog(elem->katalog_);
+        free(elem);
+        elem=bazaSamochodow->pierwszy_;
+    }
+    free(bazaSamochodow);
+}

@@ -20,6 +20,5 @@ void wyswietlanieListyKatalogow( BazaSamochodow* bazaSamochodow);
 void wyswietlanieKatalogu( BazaSamochodow* bazaSamochodow);
 void zamykanie(BazaSamochodow* bazaSamochodow);
 bool sprawdzKatalog(char nazwa[],int dlugosc);
-void usunWszystko(BazaSamochodow* bazaSamochodow);
 void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow);
 #endif /*PRI_PROJECT_3_MENU_H*/
