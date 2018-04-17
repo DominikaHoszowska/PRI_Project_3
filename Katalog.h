@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include "Samochod.h"
 
+
 #define DLUGOSC 15
 
 /*Created by Dominika Hoszowska on 17.04.18.*/

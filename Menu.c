@@ -1,5 +1,6 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include <stdio.h>
+#include <memory.h>
 #include "Menu.h"
 void menu(BazaSamochodow* bazaSamochodow)
 {
@@ -139,7 +140,15 @@ void wyswietlanieSamochodow(BazaSamochodow* bazaSamochodow)
 }
 void wyswietlanieListyKatalogow(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    sortowanieListyKatalogow(bazaSamochodow);
+    ElListyBaza* element=bazaSamochodow->pierwszy_;
+    int i=1;
+    while(element)
+    {
+        printf("%d.%s\n",element->katalog_->nazwa_);
+        i++;
+    }
+
 }
 void wyswietlanieKatalogu(BazaSamochodow* bazaSamochodow)
 {
@@ -154,8 +163,46 @@ void zamykanie( BazaSamochodow* bazaSamochodow)
         if (znak != '\n') { printf("Wprowadz odpowiedni znak\n"); }
     }
     if (znak == '1') {
+        usunWszystko(bazaSamochodow);
         return;
     }
     menu(bazaSamochodow);
 }
+void usunWszystko(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+}
+void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow)
+{
+    ElListyBaza* element=bazaSamochodow->pierwszy_;
+    ElListyBaza* elementnast;
+    int i,j;
+    bool zamiana;
+
+    for(i=0;i<bazaSamochodow->dlugosc_;i++)
+    {
+        zamiana=0;
+        element=bazaSamochodow->pierwszy_;
+        elementnast=element->nastepny_;
+        for(j=0;j<bazaSamochodow->dlugosc_-i-1;j++)
+        {
+             if(strcmp(element->katalog_->nazwa_,elementnast->katalog_->nazwa_)>1)
+             {
+                 zamiana=1;
+                 Katalog* pomoc;
+                 pomoc=element->katalog_;
+                 element->katalog_=elementnast->katalog_;
+                 elementnast->katalog_=pomoc;
+
+             }
+            element=element->nastepny_;
+            elementnast=elementnast->nastepny_;
+        }
+        if(!zamiana)
+        {
+            i=bazaSamochodow->dlugosc_;
+        }
+    }
+}
+
 
