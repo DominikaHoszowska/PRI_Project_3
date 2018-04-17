@@ -2,6 +2,8 @@
 #include <memory.h>
 #include <malloc.h>
 #include "BazaSamochodow.h"
+#include "Menu.h"
+
 
 
 /*Created by Dominika Hoszowska on 17.04.18.*/
@@ -43,4 +45,50 @@ void stworzKatalog(BazaSamochodow* bazaSamochodow, char nazwa[]) {
     bazaSamochodow->ostatni_ = elListyBaza;
     bazaSamochodow->dlugosc_++;
 
+}
+void zmianaNazwyKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu)
+{
+
+    int i;
+    ElListyBaza* element=bazaSamochodow->pierwszy_;
+    for(i=1;i<nrElementu;i++)
+    {
+        element=element->nastepny_;
+    }
+
+    zminaNazwyKatalogu(bazaSamochodow,element->katalog_);
+
+}
+void zminaNazwyKatalogu(BazaSamochodow* bazaSamochodow,Katalog* katalog)
+{
+
+    printf("Podaj nazwe katalogu\n");
+    char nazwa[DLUGOSC + 1] = "";
+    int sn = 0;
+    int c;
+    while ((c = getchar()) != EOF && sn < DLUGOSC) {
+        if (!(sn == 0 && c == '\n')) {
+            if (c == '\n') {
+                break;
+            }
+            nazwa[sn] = c;
+            sn++;
+        }
+    }
+    if(!sprawdzKatalog(nazwa,sn))
+    {
+        printf("Bledna nazwa\n");
+        zminaNazwyKatalogu(bazaSamochodow,katalog);
+    }
+    else
+    {
+        if(!czyUnikalnyKatalog(bazaSamochodow,nazwa))
+        {
+            printf("Nazwa nie jest unikalna\n");
+            zminaNazwyKatalogu(bazaSamochodow,katalog);
+        }
+        else
+        {
+            strcpy(katalog->nazwa_,nazwa);
+        }}
 }

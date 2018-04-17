@@ -8,7 +8,6 @@
 
 
 #include "Katalog.h"
-
 struct ElListyBaza_t
 {
     Katalog* katalog_;
@@ -28,4 +27,6 @@ typedef struct
 
 bool czyUnikalnyKatalog(BazaSamochodow* bazaSamochodow,char katalog[]);
 void stworzKatalog(BazaSamochodow* bazaSamochodow, char nazwa[]);
+void zmianaNazwyKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu);
+void zminaNazwyKatalogu(BazaSamochodow* bazaSamochodow,Katalog* katalog);
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/

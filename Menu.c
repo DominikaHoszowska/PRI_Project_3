@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <memory.h>
 #include "Menu.h"
-#include "BazaSamochodow.h"
 
 void menu(BazaSamochodow* bazaSamochodow)
 {
@@ -118,7 +117,31 @@ bool sprawdzKatalog(char nazwa[],int dlugosc)
 
 void zmianaNazwyKatalogu(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    if(bazaSamochodow->dlugosc_)
+    {
+        printf("Ktora nazwe chcesz zmienic?\n");
+        wyswietlanieListyKatalogow(bazaSamochodow);
+        printf("%d.Powrot do menu\n",bazaSamochodow->dlugosc_+1);
+        float n;
+
+        while (!scanf("%f", &n) || n < 1 || n > bazaSamochodow->dlugosc_+1 || n - (int) n != 0) {
+            if (n != '\n') {
+                printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", bazaSamochodow->dlugosc_+1);
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
+        }
+        if(n!=bazaSamochodow->dlugosc_+1)
+        {
+            zmianaNazwyKatalogu2(bazaSamochodow,n);
+        }
+    }
+    else
+    {
+        printf("Baza jest pusta\n");
+    }
+
+
 }
 void usuniecieKatalogu(BazaSamochodow* bazaSamochodow)
 {
@@ -187,9 +210,9 @@ void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow)
         zamiana=0;
         element=bazaSamochodow->pierwszy_;
         elementnast=element->nastepny_;
-        for(j=0;j<bazaSamochodow->dlugosc_-i-1;j++)
+        for(j=0;j<bazaSamochodow->dlugosc_-1;j++)
         {
-             if(strcmp(element->katalog_->nazwa_,elementnast->katalog_->nazwa_)>1)
+            if(strcmp(element->katalog_->nazwa_,elementnast->katalog_->nazwa_)>0)
              {
                  zamiana=1;
                  Katalog* pomoc;
