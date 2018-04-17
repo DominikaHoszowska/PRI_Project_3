@@ -104,3 +104,17 @@ void usunWszystko(BazaSamochodow* bazaSamochodow)
     }
     free(bazaSamochodow);
 }
+void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu)
+{
+    int i;
+    ElListyBaza* element=bazaSamochodow->pierwszy_;
+    for(i=1;i<nrElementu;i++)
+    {
+        element=element->nastepny_;
+    }
+    usunCalyKatalog(element->katalog_);
+    element->poprzedni_->nastepny_=element->nastepny_;
+    element->nastepny_->poprzedni_=element->poprzedni_;
+    free(element);
+    bazaSamochodow->dlugosc_--;
+}

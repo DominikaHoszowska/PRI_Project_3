@@ -147,7 +147,29 @@ void zmianaNazwyKatalogu(BazaSamochodow* bazaSamochodow)
 }
 void usuniecieKatalogu(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    if(bazaSamochodow->dlugosc_) {
+        printf("Ktory katalog chcesz usunac?\n");
+        wyswietlanieListyKatalogow(bazaSamochodow);
+        printf("%d.Powrot do menu\n", bazaSamochodow->dlugosc_ + 1);
+        float n;
+
+        while (!scanf("%f", &n) || n < 1 || n > bazaSamochodow->dlugosc_ + 1 || n - (int) n != 0) {
+            if (n != '\n') {
+                printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", bazaSamochodow->dlugosc_ + 1);
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
+        }
+        if(n!=bazaSamochodow->dlugosc_+1)
+        {
+            usuniecieKatalogu2(bazaSamochodow,n);
+        }
+
+    }
+    else
+    {
+        printf("Baza jest pusta\n");
+    }
 }
 void dodanieSamochodu(BazaSamochodow* bazaSamochodow)
 {

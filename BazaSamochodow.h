@@ -30,5 +30,7 @@ void stworzKatalog(BazaSamochodow* bazaSamochodow, char nazwa[]);
 void zmianaNazwyKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu);
 void zminaNazwyKatalogu(BazaSamochodow* bazaSamochodow,Katalog* katalog);
 void usunWszystko(BazaSamochodow* bazaSamochodow);
+void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu);
+
 
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/
