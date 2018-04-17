@@ -12,15 +12,18 @@
 typedef struct
 {
     Katalog* katalog_;
-    Katalog* nastepny_;
-    Katalog* poprzedni_;
+    struct ElListyBaza* nastepny_;
+    struct ElListyBaza* poprzedni_;
 
 }ElListyBaza;
 
 typedef struct
 {
     int dlugosc_;
-    ElListyBaza* pierwszy_;
-    ElListyBaza* ostatni;
+    struct ElListyBaza* pierwszy_;
+    struct ElListyBaza* ostatni_;
 }BazaSamochodow;
+
+bool czyUnikalnyKatalog(BazaSamochodow* bazaSamochodow,char katalog[]);
+void stworzKatalog(BazaSamochodow* bazaSamochodow, char nazwa[]);
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/

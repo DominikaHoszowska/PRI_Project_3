@@ -3,6 +3,8 @@
 #ifndef PRI_PROJECT_3_MENU_H
 #define PRI_PROJECT_3_MENU_H
 
+
+#include <stdbool.h>
 #include "BazaSamochodow.h"
 
 void menu(BazaSamochodow* bazaSamochodow);
@@ -16,4 +18,5 @@ void wyswietlanieSamochodow(BazaSamochodow* bazaSamochodow);
 void wyswietlanieListyKatalogow( BazaSamochodow* bazaSamochodow);
 void wyswietlanieKatalogu( BazaSamochodow* bazaSamochodow);
 void zamykanie(BazaSamochodow* bazaSamochodow);
+bool sprawdzKatalog(char nazwa[],int dlugosc);
 #endif /*PRI_PROJECT_3_MENU_H*/

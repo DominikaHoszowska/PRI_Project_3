@@ -1,6 +1,6 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include <stdio.h>
-#include"Menu.h"
+#include "Menu.h"
 void menu(BazaSamochodow* bazaSamochodow)
 {
     printf("Menu:\n"
@@ -64,8 +64,55 @@ void menu(BazaSamochodow* bazaSamochodow)
 }
 void tworzenieKatalogu(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    printf("Podaj nazwe katalogu\n");
+    char katalog[DLUGOSC + 1] = "";
+    int sn = 0;
+    int c;
+    while ((c = getchar()) != EOF && sn < DLUGOSC) {
+        if (!(sn == 0 && c == '\n')) {
+            if (c == '\n') {
+                break;
+            }
+            katalog[sn] = c;
+            sn++;
+        }
+    }
+    if(!sprawdzKatalog(katalog,sn))
+    {
+        printf("Bledna nazwa\n");
+        tworzenieKatalogu(bazaSamochodow);
+    }
+    else
+    {
+        if(!czyUnikalnyKatalog(bazaSamochodow,katalog))
+        {
+            printf("Nazwa nie jest unikalna");
+            tworzenieKatalogu(bazaSamochodow);
+        }
+        else
+        {
+            stworzKatalog(bazaSamochodow,katalog);
+        }}
+
+
 }
+bool sprawdzKatalog(char nazwa[],int dlugosc)
+{
+    bool spr = 1;
+    if (nazwa[0] >= 'A' && nazwa[0] <= 'Z') {
+
+        int i = 1;
+        for (; i < dlugosc; i++) {
+            if (!(nazwa[i] >= 'a' && nazwa[i] <= 'z')) {
+                spr = 0;
+            }
+        }
+    } else {
+        spr = 0;
+    }
+    return spr;
+}
+
 void zmianaNazwyKatalogu(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
