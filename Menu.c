@@ -1,7 +1,7 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include <stdio.h>
 #include"Menu.h"
-void menu(struct BazaSamochodow* bazaSamochodow)
+void menu(BazaSamochodow* bazaSamochodow)
 {
     printf("Menu:\n"
                    "1.Tworzenie nowego katalogu\n"
@@ -62,43 +62,43 @@ void menu(struct BazaSamochodow* bazaSamochodow)
             break;
     }
 }
-void tworzenieKatalogu(struct BazaSamochodow* bazaSamochodow)
+void tworzenieKatalogu(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void zmianaNazwyKatalogu(struct BazaSamochodow* bazaSamochodow)
+void zmianaNazwyKatalogu(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void usuniecieKatalogu(struct BazaSamochodow* bazaSamochodow)
+void usuniecieKatalogu(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void dodanieSamochodu(struct BazaSamochodow* bazaSamochodow)
+void dodanieSamochodu(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void edycjaSamochodu(struct BazaSamochodow* bazaSamochodow)
+void edycjaSamochodu(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void przenoszenieSamochodow(struct BazaSamochodow* bazaSamochodow)
+void przenoszenieSamochodow(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void wyswietlanieSamochodow(struct BazaSamochodow* bazaSamochodow)
+void wyswietlanieSamochodow(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void wyswietlanieListyKatalogow(struct BazaSamochodow* bazaSamochodow)
+void wyswietlanieListyKatalogow(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void wyswietlanieKatalogu(struct BazaSamochodow* bazaSamochodow)
+void wyswietlanieKatalogu(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 }
-void zamykanie(struct BazaSamochodow* bazaSamochodow)
+void zamykanie( BazaSamochodow* bazaSamochodow)
 {
     printf("Czy na pewno chcesz opuscic program?\n"
                    "Jezeli tak wcisnij 1, a jezeli nie wcisnij 0\n");
