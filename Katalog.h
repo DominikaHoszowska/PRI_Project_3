@@ -1,20 +1,21 @@
-#include "Panstwo.h"
+
+#include "Samochod.h"
 
 /*Created by Dominika Hoszowska on 17.04.18.*/
 
 
 typedef struct
 {
-    Panstwo panstwo;
-    Panstwo* nastepny;
-    Panstwo* poprzedni;
+    Samochod samochod;
+    Samochod* nastepny;
+    Samochod* poprzedni;
 
-}ElListyPanstwa;
+}ElListyKatalog;
 
 typedef struct
 {
     int dlugosc;
-    ElListyPanstwa* Pierwszy;
+    ElListyKatalog* Pierwszy;
 }Katalog;
 #ifndef PRI_PROJECT_3_KATALOG_H
 #define PRI_PROJECT_3_KATALOG_H
