@@ -9,7 +9,7 @@ typedef struct
     char nazwa_[DLUGOSC+1];
     int przebieg_;
     int id_;
-    struct Katalog* dzial;
+    struct Katalog* dzial_;
 } Samochod;
 
 #ifndef PRI_PROJECT_3_SAMOCHOD_H

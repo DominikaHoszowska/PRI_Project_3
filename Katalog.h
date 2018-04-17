@@ -4,16 +4,17 @@
 
 typedef struct
 {
-    Samochod samochod;
-    Samochod* nastepny;
-    Samochod* poprzedni;
+    Samochod samochod_;
+    Samochod* nastepny_;
+    Samochod* poprzedni_;
 
 }ElListyKatalog;
 
 typedef struct
 {
-    int dlugosc;
-    ElListyKatalog* Pierwszy;
+    int dlugosc_;
+    ElListyKatalog* pierwszy_;
+    ElListyKatalog* ostatni_;
 }Katalog;
 
 #ifndef PRI_PROJECT_3_KATALOG_H

@@ -11,15 +11,16 @@
 
 typedef struct
 {
-    Katalog* katalog;
-    Katalog* nastepny;
-    Katalog* poprzedni;
+    Katalog* katalog_;
+    Katalog* nastepny_;
+    Katalog* poprzedni_;
 
 }ElListyBaza;
 
 typedef struct
 {
-    int dlugosc;
-    ElListyBaza* Pierwszy;
+    int dlugosc_;
+    ElListyBaza* pierwszy_;
+    ElListyBaza* ostatni;
 }BazaSamochodow;
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/
