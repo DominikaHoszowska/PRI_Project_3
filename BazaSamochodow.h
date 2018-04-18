@@ -8,6 +8,7 @@
 
 
 #include "Katalog.h"
+
 struct ElListyBaza_t
 {
     Katalog* katalog_;
