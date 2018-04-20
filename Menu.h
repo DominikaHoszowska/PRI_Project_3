@@ -3,10 +3,9 @@
 #ifndef PRI_PROJECT_3_MENU_H
 #define PRI_PROJECT_3_MENU_H
 
-
 #include <stdbool.h>
+#include "Struktury.h"
 #include "BazaSamochodow.h"
-
 
 void menu(BazaSamochodow* bazaSamochodow);
 void tworzenieKatalogu(BazaSamochodow* bazaSamochodow);

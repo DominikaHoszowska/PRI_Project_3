@@ -1,10 +1,7 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include <stdio.h>
 #include <memory.h>
-#include <malloc.h>
 #include "Menu.h"
-#include "BazaSamochodow.h"
-
 void menu(BazaSamochodow* bazaSamochodow)
 {
     printf("Menu:\n"
@@ -190,7 +187,7 @@ void dodanieSamochodu(BazaSamochodow* bazaSamochodow)
         if(n!=bazaSamochodow->dlugosc_+1)
         {
             Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,n);
-            dodajSamochod(katalog);
+            dodajSamochod(katalog,bazaSamochodow);
 
         }
     }

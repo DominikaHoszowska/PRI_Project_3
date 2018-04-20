@@ -2,19 +2,20 @@
 #include <malloc.h>
 #include <memory.h>
 #include "Katalog.h"
-
 /*Created by Dominika Hoszowska on 17.04.18.*/
 
 void usunCalyKatalog(Katalog* katalog)
 {
     /*TODO*/
 }
-void dodajSamochod(Katalog* katalog)
+void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)
 {
     if(katalog->dlugosc_)
     {
         Samochod* samochod=(Samochod*) malloc(sizeof(Samochod));
         wprowadzanieNazwy(samochod->nazwa_);
+        wprowadzaniePrzebiegu(samochod->przebieg_);
+        wprowadzanieId(&samochod->id_,bazaSamochodow);
         ElListyKatalog* element=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
         element->samochod_=samochod;
         
@@ -71,4 +72,43 @@ bool sprawdzNazwe(char nazwa[], int dlugosc) {
     }
     return spr;
 }
+void wprowadzaniePrzebiegu(int *przebieg_) {
+    float n;
+    printf("Wprowadz przebieg\n");
 
+    while (!scanf("%f", &n) || n < 1 || n - (int) n != 0 || n > 999999) {
+        printf("Podaj prawidlową liczbe\n");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+
+    }
+    *przebieg_ = (int) n;
+}
+
+void wprowadzanieId(int* id,BazaSamochodow* bazaSamochodow) {
+    float n;
+    printf("Wprowadz Id\n");
+
+    while (!scanf("%f", &n) || n < 1 || n - (int) n != 0 || n > 99999) {
+        printf("Podaj dodatnia liczbe calkowita!\n");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
+    if (!(czyUnikalneId((int) n,bazaSamochodow))) {
+        printf("Ten numer nie jest unikalny.\n");
+        wprowadzanieId(id, bazaSamochodow);
+    }
+    else
+    {
+        id=(int)n;
+    }
+
+}
+bool czyUnikalneId(int id, BazaSamochodow* bazaSamochodow) {
+    int i;
+
+    /*TODO*/
+    return 1;
+
+}

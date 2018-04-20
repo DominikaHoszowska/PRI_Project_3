@@ -5,7 +5,6 @@
 #include <malloc.h>
 #include "Menu.h"
 
-
 int main() {
     printf("PRI Projekt 3 Zadanie 3-1201\n"
                    "autor: Dominika Hoszowska\n"
