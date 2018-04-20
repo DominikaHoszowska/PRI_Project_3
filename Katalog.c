@@ -2,6 +2,8 @@
 #include <malloc.h>
 #include <memory.h>
 #include "Katalog.h"
+#include "Struktury.h"
+
 /*Created by Dominika Hoszowska on 17.04.18.*/
 
 void usunCalyKatalog(Katalog* katalog)
@@ -10,16 +12,29 @@ void usunCalyKatalog(Katalog* katalog)
 }
 void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)
 {
-    if(katalog->dlugosc_)
+
+
+    Samochod* samochod=(Samochod*) malloc(sizeof(Samochod));
+    wprowadzanieNazwy(samochod->nazwa_);
+    wprowadzaniePrzebiegu(&samochod->przebieg_);
+    wprowadzanieId(&samochod->id_,bazaSamochodow);
+    ElListyKatalog* element=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
+    element->samochod_=samochod;
+    element->nastepny_=NULL;
+    if(!katalog->dlugosc_)
     {
-        Samochod* samochod=(Samochod*) malloc(sizeof(Samochod));
-        wprowadzanieNazwy(samochod->nazwa_);
-        wprowadzaniePrzebiegu(samochod->przebieg_);
-        wprowadzanieId(&samochod->id_,bazaSamochodow);
-        ElListyKatalog* element=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
-        element->samochod_=samochod;
-        
+        element->poprzedni_=NULL;
+        katalog->pierwszy_=element;
+
     }
+    else
+    {
+        element->poprzedni_=katalog->ostatni_;
+        katalog->ostatni_->nastepny_=element;
+        katalog->ostatni_=element;
+    }
+    katalog->ostatni_=element;
+    katalog->dlugosc_++;
 
 }
 void wprowadzanieNazwy(char nazwa_[]) {
@@ -101,14 +116,27 @@ void wprowadzanieId(int* id,BazaSamochodow* bazaSamochodow) {
     }
     else
     {
-        id=(int)n;
+        *id=(int)n;
     }
 
 }
 bool czyUnikalneId(int id, BazaSamochodow* bazaSamochodow) {
-    int i;
 
-    /*TODO*/
+    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+    while(katalog)
+    {
+        ElListyKatalog* samochod=katalog->katalog_->pierwszy_;
+        while (samochod)
+        {
+            if(samochod->samochod_->id_==id)
+            {
+                return 0;
+            }
+            samochod=samochod->nastepny_;
+        }
+        katalog=katalog->nastepny_;
+    }
+
     return 1;
 
 }

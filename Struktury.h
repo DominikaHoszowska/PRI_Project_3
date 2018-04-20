@@ -4,6 +4,7 @@
 #define DLUGOSC 15
 
 typedef struct ElListyBaza_t ElListyBaza;
+typedef struct ElListyKatalog_t ElListyKatalog;
 typedef struct BazaSamochodow_t BazaSamochodow;
 typedef struct
 {
@@ -12,13 +13,13 @@ typedef struct
     int id_;
     struct Katalog* dzial_;
 } Samochod;
-typedef struct
+struct ElListyKatalog_t
 {
     Samochod* samochod_;
-    struct ElListyKatalog* nastepny_;
-    struct ElListyKatalog* poprzedni_;
+    struct ElListyKatalog_t* nastepny_;
+    struct ElListyKatalog_t* poprzedni_;
 
-}ElListyKatalog;
+};
 
 typedef struct
 {
