@@ -405,9 +405,10 @@ void wyswietlSamochodyId(BazaSamochodow* bazaSamochodow)
 }
 void wyswietlSamochodNazwa(BazaSamochodow*bazaSamochodow)
 {
-   sortowanieListyKatalogow(bazaSamochodow);
-    /*TODO*/
-
+    sortowanieListyKatalogow(bazaSamochodow);
+    char nazwa[]="";
+    wprowadzanieNazwy(nazwa);
+    wyswietlSamochodyNazwa2(bazaSamochodow,nazwa);
 }
 
 void zamykanie( BazaSamochodow* bazaSamochodow)

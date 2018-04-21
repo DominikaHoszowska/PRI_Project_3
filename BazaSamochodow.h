@@ -19,4 +19,5 @@ void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu);
 Katalog* zwrocNtyKatalog(BazaSamochodow* bazaSamochodow, int nrElementu);
 void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg);
 void wyswietlSamochody(Katalog*);
+void wyswietlSamochodyNazwa2(BazaSamochodow* bazaSamochodow, char nazwa[]);
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/

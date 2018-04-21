@@ -2,7 +2,6 @@
 #include <memory.h>
 #include <malloc.h>
 #include "BazaSamochodow.h"
-#include "Struktury.h"
 
 
 
@@ -130,10 +129,10 @@ Katalog* zwrocNtyKatalog(BazaSamochodow* bazaSamochodow, int nrElementu)
 }
 void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg)
 {
-    Katalog* oPrzebiegu=(Katalog*)malloc(sizeof(Katalog));
-    oPrzebiegu->dlugosc_=0;
-    oPrzebiegu->pierwszy_=NULL;
-    oPrzebiegu->ostatni_=NULL;
+    Katalog* wynik=(Katalog*)malloc(sizeof(Katalog));
+    wynik->dlugosc_=0;
+    wynik->pierwszy_=NULL;
+    wynik->ostatni_=NULL;
     ElListyBaza* katalog=bazaSamochodow->pierwszy_;
     while (katalog)
     {
@@ -144,31 +143,31 @@ void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg)
                 ElListyKatalog* elem=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
                 elem->samochod_=samochod->samochod_;
                 elem->nastepny_=NULL;
-                if(!oPrzebiegu->dlugosc_)
+                if(!wynik->dlugosc_)
                 {
-                    oPrzebiegu->pierwszy_=elem;
+                    wynik->pierwszy_=elem;
                     elem->poprzedni_=NULL;
                 }
                 else
                 {
-                    elem->poprzedni_=oPrzebiegu->ostatni_;
+                    elem->poprzedni_=wynik->ostatni_;
                     elem->poprzedni_->nastepny_=elem;
                 }
 
-                oPrzebiegu->ostatni_=elem;
-                oPrzebiegu->dlugosc_++;
+                wynik->ostatni_=elem;
+                wynik->dlugosc_++;
             }
             samochod=samochod->nastepny_;
         }
 
         katalog=katalog->nastepny_;
     }
-    if(oPrzebiegu->dlugosc_)
+    if(wynik->dlugosc_)
     {
         printf("Samochody o przebiegu %d\n",przebieg);
-        wyswietlSamochody(oPrzebiegu);
+        wyswietlSamochody(wynik);
     }
-    usunCalyKatalog(oPrzebiegu);
+    usunCalyKatalog(wynik);
 
 }
 void wyswietlSamochody(Katalog* katalog)
@@ -184,3 +183,50 @@ void wyswietlSamochody(Katalog* katalog)
     }
 
 }
+void wyswietlSamochodyNazwa2(BazaSamochodow* bazaSamochodow, char nazwa[])
+{
+    Katalog* wynik=(Katalog*)malloc(sizeof(Katalog));
+    wynik->dlugosc_=0;
+    wynik->pierwszy_=NULL;
+    wynik->ostatni_=NULL;
+    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+    while (katalog)
+    {
+        ElListyKatalog* samochod=katalog->katalog_->pierwszy_;
+        while(samochod){
+            if(!strcmp(samochod->samochod_->nazwa_,nazwa))
+            {
+                ElListyKatalog* elem=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
+                elem->samochod_=samochod->samochod_;
+                elem->nastepny_=NULL;
+                if(!wynik->dlugosc_)
+                {
+                    wynik->pierwszy_=elem;
+                    elem->poprzedni_=NULL;
+                }
+                else
+                {
+                    elem->poprzedni_=wynik->ostatni_;
+                    elem->poprzedni_->nastepny_=elem;
+                }
+
+                wynik->ostatni_=elem;
+                wynik->dlugosc_++;
+            }
+            samochod=samochod->nastepny_;
+        }
+
+        katalog=katalog->nastepny_;
+    }
+    if(wynik->dlugosc_)
+    {
+        printf("Samochody o nazwie %s\n",nazwa);
+        wyswietlSamochody(wynik);
+    }
+    ElListyKatalog* elem=wynik->pierwszy_;
+    while(elem)
+    {
+        ElListyKatalog* pomoc=elem;
+        elem=elem->nastepny_;
+        free(pomoc);
+    }}

@@ -8,7 +8,14 @@
 
 void usunCalyKatalog(Katalog* katalog)
 {
-    /*TODO*/
+    ElListyKatalog* elem=katalog->pierwszy_;
+    while(elem)
+    {
+        ElListyKatalog* pomoc=elem;
+        elem=elem->nastepny_;
+        free(pomoc->samochod_);
+        free(pomoc);
+    }
 }
 void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)
 {
