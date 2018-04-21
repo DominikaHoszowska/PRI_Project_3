@@ -138,25 +138,29 @@ void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg)
     while (katalog)
     {
         ElListyKatalog* samochod=katalog->katalog_->pierwszy_;
-        if(samochod->samochod_->przebieg_==przebieg)
-        {
-            ElListyKatalog* elem=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
-            elem->samochod_=samochod->samochod_;
-            elem->nastepny_=NULL;
-            if(!oPrzebiegu->dlugosc_)
+        while(samochod){
+            if(samochod->samochod_->przebieg_==przebieg)
             {
-                oPrzebiegu->pierwszy_=elem;
-                elem->poprzedni_=NULL;
-            }
-            else
-            {
-                elem->poprzedni_=oPrzebiegu->ostatni_;
-                elem->poprzedni_->nastepny_=elem;
-            }
+                ElListyKatalog* elem=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
+                elem->samochod_=samochod->samochod_;
+                elem->nastepny_=NULL;
+                if(!oPrzebiegu->dlugosc_)
+                {
+                    oPrzebiegu->pierwszy_=elem;
+                    elem->poprzedni_=NULL;
+                }
+                else
+                {
+                    elem->poprzedni_=oPrzebiegu->ostatni_;
+                    elem->poprzedni_->nastepny_=elem;
+                }
 
-            oPrzebiegu->ostatni_=elem;
-            oPrzebiegu->dlugosc_++;
+                oPrzebiegu->ostatni_=elem;
+                oPrzebiegu->dlugosc_++;
+            }
+            samochod=samochod->nastepny_;
         }
+
         katalog=katalog->nastepny_;
     }
     if(oPrzebiegu->dlugosc_)
@@ -169,6 +173,7 @@ void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg)
 }
 void wyswietlSamochody(Katalog* katalog)
 {
+    printf("%-15s|%-15s|%-5s|%-5s\n", "Dzial", "Nazwa samochodu", "Numer", "Przebieg");
     ElListyKatalog* elem=katalog->pierwszy_;
     while(elem){
         printf("%-15s", elem->samochod_->dzial_->nazwa_);
