@@ -17,6 +17,6 @@ void zminaNazwyKatalogu(BazaSamochodow* bazaSamochodow,Katalog* katalog);
 void usunWszystko(BazaSamochodow* bazaSamochodow);
 void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu);
 Katalog* zwrocNtyKatalog(BazaSamochodow* bazaSamochodow, int nrElementu);
-
-
+void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg);
+void wyswietlSamochody(Katalog*);
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/

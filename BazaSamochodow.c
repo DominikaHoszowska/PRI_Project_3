@@ -2,6 +2,7 @@
 #include <memory.h>
 #include <malloc.h>
 #include "BazaSamochodow.h"
+#include "Struktury.h"
 
 
 
@@ -126,4 +127,55 @@ Katalog* zwrocNtyKatalog(BazaSamochodow* bazaSamochodow, int nrElementu)
         element=element->nastepny_;
     }
     return element->katalog_;
+}
+void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg)
+{
+    Katalog* oPrzebiegu=(Katalog*)malloc(sizeof(Katalog));
+    oPrzebiegu->dlugosc_=0;
+    oPrzebiegu->pierwszy_=NULL;
+    oPrzebiegu->ostatni_=NULL;
+    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+    while (katalog)
+    {
+        ElListyKatalog* samochod=katalog->katalog_->pierwszy_;
+        if(samochod->samochod_->przebieg_==przebieg)
+        {
+            ElListyKatalog* elem=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
+            elem->samochod_=samochod->samochod_;
+            elem->nastepny_=NULL;
+            if(!oPrzebiegu->dlugosc_)
+            {
+                oPrzebiegu->pierwszy_=elem;
+                elem->poprzedni_=NULL;
+            }
+            else
+            {
+                elem->poprzedni_=oPrzebiegu->ostatni_;
+                elem->poprzedni_->nastepny_=elem;
+            }
+
+            oPrzebiegu->ostatni_=elem;
+            oPrzebiegu->dlugosc_++;
+        }
+        katalog=katalog->nastepny_;
+    }
+    if(oPrzebiegu->dlugosc_)
+    {
+        printf("Samochody o przebiegu %d\n",przebieg);
+        wyswietlSamochody(oPrzebiegu);
+    }
+    usunCalyKatalog(oPrzebiegu);
+
+}
+void wyswietlSamochody(Katalog* katalog)
+{
+    ElListyKatalog* elem=katalog->pierwszy_;
+    while(elem){
+        printf("%-15s", elem->samochod_->dzial_->nazwa_);
+        printf("|%-15s|",elem->samochod_->nazwa_);
+        wypiszId(elem->samochod_->id_);
+        printf("%-5d\n",elem->samochod_->przebieg_);
+        elem=elem->nastepny_;
+    }
+
 }

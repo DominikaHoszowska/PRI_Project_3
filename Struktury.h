@@ -6,12 +6,13 @@
 typedef struct ElListyBaza_t ElListyBaza;
 typedef struct ElListyKatalog_t ElListyKatalog;
 typedef struct BazaSamochodow_t BazaSamochodow;
+typedef struct Katalog_t Katalog;
 typedef struct
 {
     char nazwa_[DLUGOSC+1];
     int przebieg_;
     int id_;
-    struct Katalog* dzial_;
+    Katalog* dzial_;
 } Samochod;
 struct ElListyKatalog_t
 {
@@ -21,13 +22,13 @@ struct ElListyKatalog_t
 
 };
 
-typedef struct
+struct Katalog_t
 {
     char nazwa_[DLUGOSC+1];
     int dlugosc_;
     ElListyKatalog* pierwszy_;
     ElListyKatalog* ostatni_;
-}Katalog;
+};
 
 struct ElListyBaza_t
 {

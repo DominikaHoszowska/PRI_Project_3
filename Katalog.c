@@ -18,6 +18,7 @@ void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)
     wprowadzanieNazwy(samochod->nazwa_);
     wprowadzaniePrzebiegu(&samochod->przebieg_);
     wprowadzanieId(&samochod->id_,bazaSamochodow);
+    samochod->dzial_=katalog;
     ElListyKatalog* element=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
     element->samochod_=samochod;
     element->nastepny_=NULL;
@@ -136,6 +137,7 @@ void przeniesSamochod(Samochod*samochod,Katalog* katalog1,Katalog* katalog2 )
     }
     elem->nastepny_=NULL;
     katalog2->ostatni_=elem;
+    elem->samochod_->dzial_=katalog2;
     katalog1->dlugosc_--;
     katalog2->dlugosc_++;
 

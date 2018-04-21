@@ -385,8 +385,17 @@ void wyswietlWszystkieSamochody(BazaSamochodow* bazaSamochodow)
 }
 void wyswietlSamochodyPrzebieg(BazaSamochodow* bazaSamochodow)
 {
+    float n;
+    printf("Wprowadz przebieg\n");
+
+    while (!scanf("%f", &n) || n < 1 || n - (int) n != 0 || n > 999999) {
+        printf("Podaj prawidlową liczbe\n");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+
+    }
     sortowanieListyKatalogow(bazaSamochodow);
-    /*TODO*/
+    wyswietlSamochodyPrzebieg2(bazaSamochodow,(int)n);
 
 }
 void wyswietlSamochodyId(BazaSamochodow* bazaSamochodow)
