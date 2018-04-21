@@ -1,6 +1,8 @@
 
 #include <malloc.h>
+#include <memory.h>
 #include "Katalog.h"
+#include "Struktury.h"
 
 /*Created by Dominika Hoszowska on 17.04.18.*/
 
@@ -59,6 +61,7 @@ bool czyUnikalneId(int id, BazaSamochodow* bazaSamochodow) {
 }
 void wyswietlKatalog(Katalog* katalog)
 {
+    sortujKatalog(katalog);
     printf("%-15s", katalog->nazwa_);
     ElListyKatalog* samochod=katalog->pierwszy_;
     while(samochod)
@@ -135,5 +138,36 @@ void przeniesSamochod(Samochod*samochod,Katalog* katalog1,Katalog* katalog2 )
     katalog2->ostatni_=elem;
     katalog1->dlugosc_--;
     katalog2->dlugosc_++;
+
+}
+void sortujKatalog(Katalog*katalog)
+{
+    ElListyKatalog* elem;
+    ElListyKatalog* elemNast;
+    int i,j;
+    bool zamiana;
+    for(i=0;i<katalog->dlugosc_;i++)
+    {
+        zamiana=0;
+        elem=katalog->pierwszy_;
+        elemNast=elem->nastepny_;
+        for(j=0;j<katalog->dlugosc_-1;j++)
+        {
+            if(strcmp(elem->samochod_->nazwa_,elemNast->samochod_->nazwa_)>0)
+            {
+                zamiana=1;
+                Samochod* pomoc;
+                pomoc=elem->samochod_;
+                elem->samochod_=elemNast->samochod_;
+                elemNast->samochod_=pomoc;
+            }
+            elem=elem->nastepny_;
+            elemNast=elemNast->nastepny_;
+        }
+        if(!zamiana)
+        {
+            i=katalog->dlugosc_;
+        }
+    }
 
 }

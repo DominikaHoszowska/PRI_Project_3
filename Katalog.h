@@ -21,5 +21,6 @@ void edycjaSamochoduK(Katalog*,BazaSamochodow*);
 Samochod* zwrocNtySamochod(Katalog*,int);
 Samochod* wyborSamochodu(Katalog*);
 void przeniesSamochod(Samochod*,Katalog*,Katalog*);
+void sortujKatalog(Katalog*);
 
 #endif /*PRI_PROJECT_3_KATALOG_H*/

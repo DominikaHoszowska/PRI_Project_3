@@ -372,6 +372,7 @@ void wyswietlWszystkieSamochody(BazaSamochodow* bazaSamochodow)
         {
             if(elem->katalog_->dlugosc_)/*Nie wyswietla pustych katalogow*/
             wyswietlKatalog(elem->katalog_);
+            printf("\n");
             elem=elem->nastepny_;
         }
 
