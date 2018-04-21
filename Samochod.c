@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <memory.h>
 #include "Samochod.h"
-#include "Struktury.h"
 
 /*Created by Dominika Hoszowska on 17.04.18.*/
 void wprowadzanieNazwy(char nazwa_[]) {
