@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <memory.h>
 #include "Menu.h"
+#include "Struktury.h"
+
 void menu(BazaSamochodow* bazaSamochodow)
 {
     printf("Menu:\n"
@@ -361,10 +363,25 @@ void wyswietlanieKatalogu(BazaSamochodow* bazaSamochodow)
     }}
 void wyswietlWszystkieSamochody(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    if(bazaSamochodow->iloscSamochodow_)
+    {
+        sortowanieListyKatalogow(bazaSamochodow);
+        ElListyBaza* elem=bazaSamochodow->pierwszy_;
+        printf("%-15s|%-15s|%-5s|%-5s\n", "Dzial", "Nazwa samochodu", "Numer", "Przebieg");
+        while (elem)
+        {
+            if(elem->katalog_->dlugosc_)/*Nie wyswietla pustych katalogow*/
+            wyswietlKatalog(elem->katalog_);
+            elem=elem->nastepny_;
+        }
+
+    } else{
+        printf("Baza jest pusta\n");
+    }
 }
 void wyswietlSamochodyPrzebieg(BazaSamochodow* bazaSamochodow)
 {
+    sortowanieListyKatalogow(bazaSamochodow);
     /*TODO*/
 
 }
@@ -375,6 +392,7 @@ void wyswietlSamochodyId(BazaSamochodow* bazaSamochodow)
 }
 void wyswietlSamochodNazwa(BazaSamochodow*bazaSamochodow)
 {
+   sortowanieListyKatalogow(bazaSamochodow);
     /*TODO*/
 
 }

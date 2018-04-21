@@ -33,6 +33,7 @@ void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)
     }
     katalog->ostatni_=element;
     katalog->dlugosc_++;
+    bazaSamochodow->iloscSamochodow_++;
 
 }
 

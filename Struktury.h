@@ -41,6 +41,7 @@ struct ElListyBaza_t
 struct BazaSamochodow_t
 {
     int dlugosc_;
+    int iloscSamochodow_;
     ElListyBaza* pierwszy_;
     ElListyBaza* ostatni_;
 };
