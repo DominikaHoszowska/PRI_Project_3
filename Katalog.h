@@ -13,10 +13,10 @@
 
 void usunCalyKatalog(Katalog* katalog);
 void dodajSamochod(Katalog* katalog, BazaSamochodow* bazaSamochodow);
-void wprowadzanieNazwy(char nazwa_[]);
-bool sprawdzNazwe(char nazwa[], int dlugosc);
-void wprowadzaniePrzebiegu(int*);
-void wprowadzanieId(int* id,BazaSamochodow* bazaSamochodow);
+
+
 bool czyUnikalneId(int id, BazaSamochodow* bazaSamochodow);
 void wyswietlKatalog(Katalog*);
+void edycjaSamochoduK(Katalog*,BazaSamochodow*);
+Samochod* zwrocNtySamochod(Katalog*,int);
 #endif /*PRI_PROJECT_3_KATALOG_H*/

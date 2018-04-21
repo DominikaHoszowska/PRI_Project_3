@@ -37,89 +37,7 @@ void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)
     katalog->dlugosc_++;
 
 }
-void wprowadzanieNazwy(char nazwa_[]) {
-    printf("Podaj nazwe samochodu\n");
-    char nazwa[DLUGOSC + 1] = "";
-    int sn = 0;
-    int c;
-    while ((c = getchar()) != EOF && sn < DLUGOSC) {
-        if (!(sn == 0 && c == '\n')) {
-            if (c == '\n') {
-                break;
-            }
 
-            nazwa[sn] = c;
-            sn++;
-        }
-    }
-    nazwa[sn]='\000';
-    if (!sprawdzNazwe(nazwa, sn)) {
-        printf("Bledna nazwa\n");
-        return wprowadzanieNazwy(nazwa_);
-    }
-    else {
-
-        strncpy(nazwa_, nazwa, DLUGOSC + 1);
-    }
-}
-bool sprawdzNazwe(char nazwa[], int dlugosc) {
-    bool spr = 1;
-    if (nazwa[0] >= 'A' && nazwa[0] <= 'Z') {
-
-        int i = 1;
-        for (; i < dlugosc; i++) {
-            if (!((nazwa[i] >= 'A' && nazwa[i] <= 'Z') || (nazwa[i] >= 'a' && nazwa[i] <= 'z') ||
-                  (nazwa[i] >= '0' && nazwa[i] <= '9')||nazwa[i]==' ')) {
-                spr = 0;
-            }
-            else {
-                if ((((nazwa[i - 1] >= 'A' && nazwa[i - 1] <= 'Z') || (nazwa[i - 1] >= 'a' && nazwa[i - 1] <= 'z')) &&
-                     nazwa[i] >= '0' && nazwa[i] <= '9') ||
-                    (((nazwa[i] >= 'A' && nazwa[i] <= 'Z') || (nazwa[i] >= 'a' && nazwa[i] <= 'z')) &&
-                     nazwa[i - 1] >= '0' && nazwa[i - 1] <= '9')) {
-                    spr = 0;
-                }
-            }
-        }
-    }
-    else {
-        spr = 0;
-    }
-    return spr;
-}
-void wprowadzaniePrzebiegu(int *przebieg_) {
-    float n;
-    printf("Wprowadz przebieg\n");
-
-    while (!scanf("%f", &n) || n < 1 || n - (int) n != 0 || n > 999999) {
-        printf("Podaj prawidlową liczbe\n");
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-
-    }
-    *przebieg_ = (int) n;
-}
-
-void wprowadzanieId(int* id,BazaSamochodow* bazaSamochodow) {
-    float n;
-    printf("Wprowadz Id\n");
-
-    while (!scanf("%f", &n) || n < 1 || n - (int) n != 0 || n > 99999) {
-        printf("Podaj dodatnia liczbe calkowita!\n");
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
-
-    if (!(czyUnikalneId((int) n,bazaSamochodow))) {
-        printf("Ten numer nie jest unikalny.\n");
-        wprowadzanieId(id, bazaSamochodow);
-    }
-    else
-    {
-        *id=(int)n;
-    }
-
-}
 bool czyUnikalneId(int id, BazaSamochodow* bazaSamochodow) {
 
     ElListyBaza* katalog=bazaSamochodow->pierwszy_;
@@ -149,4 +67,44 @@ void wyswietlKatalog(Katalog* katalog)
         wyswietlSamochod(samochod->samochod_);
         samochod=samochod->nastepny_;
     }
+}
+void edycjaSamochoduK(Katalog* katalog,BazaSamochodow* bazaSamochodow)
+{
+    printf("Ktory samochod chcesz zmienic?\n");
+    ElListyKatalog* samochodE=katalog->pierwszy_;
+    int i=1;
+    while (samochodE)
+    {
+        printf("%d.",i);
+        printf("%-15s|",samochodE->samochod_->nazwa_);
+        wypiszId(samochodE->samochod_->id_);
+        printf("%-5d\n",samochodE->samochod_->przebieg_);
+        samochodE=samochodE->nastepny_;
+        i++;
+    }
+    printf("%d.Powrot do menu\n",i);
+    float n;
+    while (!scanf("%f", &n) || n < 1 || n > i|| n - (int) n != 0) {
+        if (n != '\n') {
+            printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", i);
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
+    }
+    if(n!=i)
+    {
+        Samochod*samochod=zwrocNtySamochod(katalog,(int)n);
+        edycjaSamochoduS(samochod,bazaSamochodow);
+    }
+
+}
+Samochod* zwrocNtySamochod(Katalog* katalog,int n)
+{
+    int i;
+    ElListyKatalog* elem=katalog->pierwszy_;
+    for(i=1;i<n;i++)
+    {
+        elem=elem->nastepny_;
+    }
+    return elem->samochod_;
 }
