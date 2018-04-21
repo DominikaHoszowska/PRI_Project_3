@@ -167,8 +167,15 @@ void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg)
         printf("Samochody o przebiegu %d\n",przebieg);
         wyswietlSamochody(wynik);
     }
-    usunCalyKatalog(wynik);
+    ElListyKatalog* elem=wynik->pierwszy_;
 
+    while(elem)
+    {
+        ElListyKatalog* pomoc=elem;
+        elem=elem->nastepny_;
+        free(pomoc);
+    }
+    free(wynik);
 }
 void wyswietlSamochody(Katalog* katalog)
 {
@@ -229,4 +236,6 @@ void wyswietlSamochodyNazwa2(BazaSamochodow* bazaSamochodow, char nazwa[])
         ElListyKatalog* pomoc=elem;
         elem=elem->nastepny_;
         free(pomoc);
-    }}
+    }
+    free(wynik);
+}

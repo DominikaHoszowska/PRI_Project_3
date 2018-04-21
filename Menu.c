@@ -409,6 +409,7 @@ void wyswietlSamochodNazwa(BazaSamochodow*bazaSamochodow)
     char nazwa[]="";
     wprowadzanieNazwy(nazwa);
     wyswietlSamochodyNazwa2(bazaSamochodow,nazwa);
+    menu(bazaSamochodow);
 }
 
 void zamykanie( BazaSamochodow* bazaSamochodow)
