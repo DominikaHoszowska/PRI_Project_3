@@ -19,4 +19,5 @@ bool czyUnikalneId(int id, BazaSamochodow* bazaSamochodow);
 void wyswietlKatalog(Katalog*);
 void edycjaSamochoduK(Katalog*,BazaSamochodow*);
 Samochod* zwrocNtySamochod(Katalog*,int);
+Samochod* wyborSamochodu(Katalog*);
 #endif /*PRI_PROJECT_3_KATALOG_H*/

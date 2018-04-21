@@ -213,7 +213,7 @@ void edycjaSamochodu(BazaSamochodow* bazaSamochodow)
         }
         if(n!=bazaSamochodow->dlugosc_+1)
         {
-            Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,n);
+            Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,(int)n);
             edycjaSamochoduK(katalog,bazaSamochodow);
         }
     }
@@ -223,7 +223,40 @@ void edycjaSamochodu(BazaSamochodow* bazaSamochodow)
     }}
 void przenoszenieSamochodow(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    if(bazaSamochodow->dlugosc_)
+    {
+        printf("Z którego katalogu chcesz przeniesc samochod?\n");
+        wyswietlanieListyKatalogow(bazaSamochodow);
+        float n;
+
+        while (!scanf("%f", &n) || n < 1 || n > bazaSamochodow->dlugosc_ || n - (int) n != 0) {
+            if (n != '\n') {
+                printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", bazaSamochodow->dlugosc_);
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
+        }
+
+            Katalog* katalog1=zwrocNtyKatalog(bazaSamochodow,(int)n);
+            Samochod* samochod=wyborSamochodu(katalog1);
+        printf("Do którego katalogu chcesz przeniesc samochod?\n");
+        wyswietlanieListyKatalogow(bazaSamochodow);
+
+        while (!scanf("%f", &n) || n < 1 || n > bazaSamochodow->dlugosc_ || n - (int) n != 0) {
+            if (n != '\n') {
+                printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", bazaSamochodow->dlugosc_);
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
+        }
+        Katalog* katalog2=zwrocNtyKatalog(bazaSamochodow,(int)n);
+        przeniesSamochod(samochod,katalog2);
+
+    }
+    else
+    {
+        printf("Baza jest pusta. Musisz najpierw dodac katalog i samochody\n");
+    }}
 }
 void wyswietlanieSamochodow(BazaSamochodow* bazaSamochodow)
 {

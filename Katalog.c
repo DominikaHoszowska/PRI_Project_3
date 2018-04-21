@@ -71,6 +71,21 @@ void wyswietlKatalog(Katalog* katalog)
 void edycjaSamochoduK(Katalog* katalog,BazaSamochodow* bazaSamochodow)
 {
     printf("Ktory samochod chcesz zmienic?\n");
+    Samochod* samochod=wyborSamochodu(katalog);
+    edycjaSamochoduS(samochod,bazaSamochodow);
+}
+Samochod* zwrocNtySamochod(Katalog* katalog,int n)
+{
+    int i;
+    ElListyKatalog* elem=katalog->pierwszy_;
+    for(i=1;i<n;i++)
+    {
+        elem=elem->nastepny_;
+    }
+    return elem->samochod_;
+}
+Samochod* wyborSamochodu(Katalog* katalog)
+{
     ElListyKatalog* samochodE=katalog->pierwszy_;
     int i=1;
     while (samochodE)
@@ -82,29 +97,13 @@ void edycjaSamochoduK(Katalog* katalog,BazaSamochodow* bazaSamochodow)
         samochodE=samochodE->nastepny_;
         i++;
     }
-    printf("%d.Powrot do menu\n",i);
     float n;
-    while (!scanf("%f", &n) || n < 1 || n > i|| n - (int) n != 0) {
+    while (!scanf("%f", &n) || n < 1 || n > i-1|| n - (int) n != 0) {
         if (n != '\n') {
-            printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", i);
+            printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", i-1);
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
         }
     }
-    if(n!=i)
-    {
-        Samochod*samochod=zwrocNtySamochod(katalog,(int)n);
-        edycjaSamochoduS(samochod,bazaSamochodow);
-    }
-
-}
-Samochod* zwrocNtySamochod(Katalog* katalog,int n)
-{
-    int i;
-    ElListyKatalog* elem=katalog->pierwszy_;
-    for(i=1;i<n;i++)
-    {
-        elem=elem->nastepny_;
-    }
-    return elem->samochod_;
+    return zwrocNtySamochod(katalog,(int)n);
 }
