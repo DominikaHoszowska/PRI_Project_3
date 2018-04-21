@@ -222,8 +222,32 @@ void wyswietlanieListyKatalogow(BazaSamochodow* bazaSamochodow)
 }
 void wyswietlanieKatalogu(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
-}
+    if(bazaSamochodow->dlugosc_)
+    {
+        printf("Do którego katalogu chcesz dodac samochod?\n");
+        wyswietlanieListyKatalogow(bazaSamochodow);
+        printf("%d.Powrot do menu\n",bazaSamochodow->dlugosc_+1);
+        float n;
+
+        while (!scanf("%f", &n) || n < 1 || n > bazaSamochodow->dlugosc_+1 || n - (int) n != 0) {
+            if (n != '\n') {
+                printf("Podaj dodatnia liczbe calkowita z przedzialu 1-%d!\n", bazaSamochodow->dlugosc_+1);
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
+        }
+        if(n!=bazaSamochodow->dlugosc_+1)
+        {
+            Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,n);
+            printf("%-15s|%-15s|%-5s|%-5s\n", "Dzial", "Nazwa samochodu", "Numer", "Przebieg");
+            wyswietlKatalog(katalog);
+            printf("\n");
+        }
+    }
+    else
+    {
+        printf("Baza jest pusta. Musisz najpierw dodac katalog\n");
+    }}
 void zamykanie( BazaSamochodow* bazaSamochodow)
 {
     printf("Czy na pewno chcesz opuscic program?\n"

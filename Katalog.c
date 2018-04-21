@@ -140,3 +140,13 @@ bool czyUnikalneId(int id, BazaSamochodow* bazaSamochodow) {
     return 1;
 
 }
+void wyswietlKatalog(Katalog* katalog)
+{
+    printf("%-15s", katalog->nazwa_);
+    ElListyKatalog* samochod=katalog->pierwszy_;
+    while(samochod)
+    {
+        wyswietlSamochod(samochod->samochod_);
+        samochod=samochod->nastepny_;
+    }
+}
