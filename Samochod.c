@@ -34,8 +34,8 @@ bool sprawdzNazwe(char nazwa[], int dlugosc) {
     if ((nazwa[0] >= 'A' && nazwa[0] <= 'Z' )|| (nazwa[0]>='a' && nazwa[0]<='z')){
         if(nazwa[0]>='a' && nazwa[0]<='z')
         {
-            nazwa[0]-='a';
-            nazwa[0]+='A';
+            nazwa[0]-=('a'-'A');
+
         }
         int i = 1;
         for (; i < dlugosc; i++) {
