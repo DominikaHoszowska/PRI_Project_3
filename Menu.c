@@ -13,10 +13,14 @@ void menu(BazaSamochodow* bazaSamochodow)
                    "6.Przenoszenie samochochodu miedzy katalogami\n"
                    "7.Wyświetlanie samochodów\n"
                    "8.Wyświetkanie listy katalogów\n"
-                   "9.Wyświetlanie zawartosci wybranego katalogu\n"
-                   "10.Wyjscie z programu\n");
+                   "9.Wyświetlanie zawartosci wybranego katalogu"
+                   "10.Zapis do pliku tekstowego\n"
+                   "11.Odczyt z pliku tekstowego\n"
+                   "12.Zapis do pliku binarnego\n"
+                   "13.Odczyt z pliku binarnego"
+                   "14.Wyjscie z programu\n");
     float n;
-    while (!scanf("%f", &n) || n < 1 || n > 10 || n - (int) n != 0) {
+    while (!scanf("%f", &n) || n < 1 || n > 14 || n - (int) n != 0) {
         printf("Podaj dodatnia liczbe calkowita z przedzialu 1-10!\n");
         int c;
         while ((c = getchar()) != '\n' && c != EOF);
@@ -59,6 +63,22 @@ void menu(BazaSamochodow* bazaSamochodow)
             menu(bazaSamochodow);
             break;
         case 10:
+            zapisDoPliku(bazaSamochodow);
+            menu(bazaSamochodow);
+            break;
+        case 11:
+            odczytZPliku(bazaSamochodow);
+            menu(bazaSamochodow);
+            break;
+        case 12:
+            zapisDoPlikuBin(bazaSamochodow);
+            menu(bazaSamochodow);
+            break;
+        case 13:
+            odczytZPlikuBin(bazaSamochodow);
+            menu(bazaSamochodow);
+            break;
+        case 14:
             zamykanie(bazaSamochodow);
             break;
     }
@@ -256,7 +276,7 @@ void przenoszenieSamochodow(BazaSamochodow* bazaSamochodow)
     else
     {
         printf("Baza jest pusta. Musisz najpierw dodac katalog i samochody\n");
-    }}
+    }
 }
 void wyswietlanieSamochodow(BazaSamochodow* bazaSamochodow)
 {
@@ -349,6 +369,25 @@ void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow)
             i=bazaSamochodow->dlugosc_;
         }
     }
+}
+void zapisDoPliku(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+}
+void odczytZPliku(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+
+}
+void zapisDoPlikuBin(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+
+}
+void odczytZPlikuBin(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+
 }
 
 
