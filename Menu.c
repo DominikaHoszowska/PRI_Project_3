@@ -122,8 +122,12 @@ void tworzenieKatalogu(BazaSamochodow* bazaSamochodow)
 bool sprawdzKatalog(char nazwa[],int dlugosc)
 {
     bool spr = 1;
-    if (nazwa[0] >= 'A' && nazwa[0] <= 'Z') {
-
+    if ((nazwa[0] >= 'A' && nazwa[0] <= 'Z' )|| (nazwa[0]>='a' && nazwa[0]<='z')) {
+        if(nazwa[0]>='a' && nazwa[0]<='z')
+        {
+            nazwa[0]-='a';
+            nazwa[0]+='A';
+        }
         int i = 1;
         for (; i < dlugosc; i++) {
             if (!(nazwa[i] >= 'a' && nazwa[i] <= 'z')) {
