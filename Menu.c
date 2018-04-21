@@ -282,7 +282,41 @@ void przenoszenieSamochodow(BazaSamochodow* bazaSamochodow)
 }
 void wyswietlanieSamochodow(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    printf("1.Wyswietl wszystkie samochody\n"
+            "2.Wyswietl samochody z zadanym przebiegiem\n"
+            "3.Wyswietl samochod z zadanym Id\n"
+            "4.Wyswietl samochody z wybranego katalogu\n"
+            "5.Wyswiet samochodu w zadanej nazwie\n"
+            "6.Powrot do menu\n");
+    float n;
+    while (!scanf("%f", &n) || n < 1 || n > 14 || n - (int) n != 0) {
+        printf("Podaj dodatnia liczbe calkowita z przedzialu 1-10!\n");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    switch ((int) n) {
+        case 1:
+           wyswietlWszystkieSamochody(bazaSamochodow);
+            break;
+        case 2:
+            wyswietlSamochodyPrzebieg(bazaSamochodow);
+            break;
+        case 3:
+            wyswietlSamochodyId(bazaSamochodow);
+            break;
+        case 4:
+            wyswietlanieKatalogu(bazaSamochodow);
+            break;
+        case 5:
+            wyswietlSamochodNazwa(bazaSamochodow);
+            break;
+        case 6:
+            menu(bazaSamochodow);
+            break;
+
+    }
+
+
 }
 void wyswietlanieListyKatalogow(BazaSamochodow* bazaSamochodow)
 {
@@ -325,6 +359,26 @@ void wyswietlanieKatalogu(BazaSamochodow* bazaSamochodow)
     {
         printf("Baza jest pusta. Musisz najpierw dodac katalog\n");
     }}
+void wyswietlWszystkieSamochody(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+}
+void wyswietlSamochodyPrzebieg(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+
+}
+void wyswietlSamochodyId(BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+
+}
+void wyswietlSamochodNazwa(BazaSamochodow*bazaSamochodow)
+{
+    /*TODO*/
+
+}
+
 void zamykanie( BazaSamochodow* bazaSamochodow)
 {
     printf("Czy na pewno chcesz opuscic program?\n"
