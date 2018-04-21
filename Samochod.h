@@ -13,7 +13,6 @@ void wprowadzanieId(int* id,BazaSamochodow* bazaSamochodow);
 void wyswietlSamochod(Samochod*);
 void wypiszId(int );
 void edycjaSamochoduS(Samochod*,BazaSamochodow*);
-void przeniesSamochod(Samochod*,Katalog*);
 
 
 #endif /*PRI_PROJECT_3_SAMOCHOD_H*/

@@ -107,3 +107,34 @@ Samochod* wyborSamochodu(Katalog* katalog)
     }
     return zwrocNtySamochod(katalog,(int)n);
 }
+void przeniesSamochod(Samochod*samochod,Katalog* katalog1,Katalog* katalog2 )
+{
+    ElListyKatalog* elem=katalog1->pierwszy_;
+    while(elem->samochod_!=samochod)
+    {
+        elem=elem->nastepny_;
+    }
+    if(elem->poprzedni_)
+    elem->poprzedni_->nastepny_=elem->nastepny_;
+    else
+    {
+        katalog1->pierwszy_=elem->nastepny_;
+    }
+    if(elem->nastepny_)
+    elem->nastepny_->poprzedni_=elem->poprzedni_;
+    else
+    {
+        katalog1->ostatni_=elem->poprzedni_;
+    }
+    elem->poprzedni_=katalog2->ostatni_;
+    if(katalog2->ostatni_)
+    katalog2->ostatni_->nastepny_=elem;
+    else{
+        katalog2->pierwszy_=elem;
+    }
+    elem->nastepny_=NULL;
+    katalog2->ostatni_=elem;
+    katalog1->dlugosc_--;
+    katalog2->dlugosc_++;
+
+}

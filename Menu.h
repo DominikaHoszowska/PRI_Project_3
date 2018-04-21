@@ -19,7 +19,7 @@ void wyswietlanieListyKatalogow( BazaSamochodow* );
 void wyswietlanieKatalogu( BazaSamochodow* );
 void zamykanie(BazaSamochodow* );
 bool sprawdzKatalog(char nazwa[],int dlugosc);
-void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow);
+void sortowanieListyKatalogow(BazaSamochodow*);
 void zapisDoPliku(BazaSamochodow*);
 void odczytZPliku(BazaSamochodow*);
 void zapisDoPlikuBin(BazaSamochodow*);

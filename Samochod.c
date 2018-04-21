@@ -152,7 +152,3 @@ void edycjaSamochoduS(Samochod* samochod,BazaSamochodow* bazaSamochodow)
     }
 
 }
-void przeniesSamochod(Samochod*samochod,Katalog* katalog)
-{
-    /*TODO*/
-}

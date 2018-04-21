@@ -13,11 +13,11 @@ void menu(BazaSamochodow* bazaSamochodow)
                    "6.Przenoszenie samochochodu miedzy katalogami\n"
                    "7.Wyświetlanie samochodów\n"
                    "8.Wyświetkanie listy katalogów\n"
-                   "9.Wyświetlanie zawartosci wybranego katalogu"
+                   "9.Wyświetlanie zawartosci wybranego katalogu\n"
                    "10.Zapis do pliku tekstowego\n"
                    "11.Odczyt z pliku tekstowego\n"
                    "12.Zapis do pliku binarnego\n"
-                   "13.Odczyt z pliku binarnego"
+                   "13.Odczyt z pliku binarnego\n"
                    "14.Wyjscie z programu\n");
     float n;
     while (!scanf("%f", &n) || n < 1 || n > 14 || n - (int) n != 0) {
@@ -258,7 +258,9 @@ void przenoszenieSamochodow(BazaSamochodow* bazaSamochodow)
         }
 
             Katalog* katalog1=zwrocNtyKatalog(bazaSamochodow,(int)n);
-            Samochod* samochod=wyborSamochodu(katalog1);
+        printf("Ktory samochod chcesz przeniesc\n");
+
+        Samochod* samochod=wyborSamochodu(katalog1);
         printf("Do którego katalogu chcesz przeniesc samochod?\n");
         wyswietlanieListyKatalogow(bazaSamochodow);
 
@@ -270,7 +272,7 @@ void przenoszenieSamochodow(BazaSamochodow* bazaSamochodow)
             }
         }
         Katalog* katalog2=zwrocNtyKatalog(bazaSamochodow,(int)n);
-        przeniesSamochod(samochod,katalog2);
+        przeniesSamochod(samochod,katalog1,katalog2);
 
     }
     else
@@ -299,7 +301,7 @@ void wyswietlanieKatalogu(BazaSamochodow* bazaSamochodow)
 {
     if(bazaSamochodow->dlugosc_)
     {
-        printf("Do którego katalogu chcesz dodac samochod?\n");
+        printf("Ktory katalog chcesz zobaczyc?\n");
         wyswietlanieListyKatalogow(bazaSamochodow);
         printf("%d.Powrot do menu\n",bazaSamochodow->dlugosc_+1);
         float n;
