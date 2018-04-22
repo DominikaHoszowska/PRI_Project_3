@@ -70,7 +70,7 @@ void zminaNazwyKatalogu(BazaSamochodow* bazaSamochodow,Katalog* katalog)
             if (c == '\n') {
                 break;
             }
-            nazwa[sn] = c;
+            nazwa[sn] = (char)c;
             sn++;
         }
     }
@@ -238,4 +238,27 @@ void wyswietlSamochodyNazwa2(BazaSamochodow* bazaSamochodow, char nazwa[])
         free(pomoc);
     }
     free(wynik);
+}
+void wyswietlSamochodyID2(BazaSamochodow* bazaSamochodow, int id)
+{
+    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+    while (katalog)
+    {
+        ElListyKatalog* samochod=katalog->katalog_->pierwszy_;
+        while(samochod)
+        {
+            if(samochod->samochod_->id_==id)
+            {
+                printf("%-15s|%-15s|%-5s|%-5s\n", "Dzial", "Nazwa samochodu", "Numer", "Przebieg");
+                printf("%-15s", samochod->samochod_->dzial_->nazwa_);
+                printf("|%-15s|",samochod->samochod_->nazwa_);
+                wypiszId(samochod->samochod_->id_);
+                printf("%-5d\n",samochod->samochod_->przebieg_);
+                return;
+            }
+            samochod=samochod->nastepny_;
+        }
+        katalog=katalog->nastepny_;
+    }
+    printf("Brak samochodow o podanym id\n");
 }

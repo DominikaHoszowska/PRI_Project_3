@@ -20,4 +20,5 @@ Katalog* zwrocNtyKatalog(BazaSamochodow* bazaSamochodow, int nrElementu);
 void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg);
 void wyswietlSamochody(Katalog*);
 void wyswietlSamochodyNazwa2(BazaSamochodow* bazaSamochodow, char nazwa[]);
+void wyswietlSamochodyID2(BazaSamochodow*,int);
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/

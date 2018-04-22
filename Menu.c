@@ -400,8 +400,15 @@ void wyswietlSamochodyPrzebieg(BazaSamochodow* bazaSamochodow)
 }
 void wyswietlSamochodyId(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    float n;
+    printf("Wprowadz Id\n");
 
+    while (!scanf("%f", &n) || n < 1 || n - (int) n != 0 || n > 999999) {
+        printf("Podaj prawidlową liczbe\n");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    wyswietlSamochodyID2(bazaSamochodow,n);
 }
 void wyswietlSamochodNazwa(BazaSamochodow*bazaSamochodow)
 {
