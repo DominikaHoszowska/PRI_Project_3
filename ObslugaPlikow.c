@@ -64,7 +64,27 @@ void zapisDoPlikuBin(char nazwa[],BazaSamochodow* bazaSamochodow)
             sn++;
         }
     }
-    /*TODO*/
+    FILE *file;
+    file=fopen(nazwa,"wb");
+    if(file==NULL)
+    {
+        printf("Nie mozna otworzyc pliku %s\n",nazwa);
+        return;
+    }
+    sortowanieListyKatalogow(bazaSamochodow);
+    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+    while(katalog)
+    {
+        sortujKatalog(katalog->katalog_);
+        ElListyKatalog* samochod=katalog->katalog_->pierwszy_;
+        while(samochod)
+        {
+            wypiszSamochodB(file,samochod->samochod_);
+            samochod=samochod->nastepny_;
+        }
+        katalog=katalog->nastepny_;
+    }
+    fclose(file);
 }
 void wypiszSamochod(FILE* file,Samochod* samochod)
 {
@@ -96,4 +116,12 @@ void wypiszIdF(FILE* file,int id)
     }
     fprintf(file,"%-5d",id);
 
+}
+void wypiszSamochodB(FILE* file,Samochod* samochod)
+{
+    fwrite(samochod->nazwa_, sizeof(char), sizeof(samochod->nazwa_),file);
+    fwrite(&samochod->id_, sizeof(int), 1,file);
+    fwrite(&samochod->przebieg_, sizeof(int), 1,file);
+    fwrite(samochod->dzial_->nazwa_, sizeof(char), sizeof(samochod->dzial_->nazwa_),file);
+    fprintf(file,"\n");
 }
