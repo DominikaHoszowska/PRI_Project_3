@@ -14,10 +14,10 @@ void wprowadzanieNazwy(char nazwa_[]) {
                 break;
             }
 
-            nazwa[sn] = c;
+            nazwa[sn] =(char)c;
             sn++;
-        }
-    }
+
+    }}
     nazwa[sn]='\000';
     if (!sprawdzNazwe(nazwa, sn)) {
         printf("Bledna nazwa\n");

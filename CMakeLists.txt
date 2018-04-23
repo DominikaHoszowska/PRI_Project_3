@@ -3,4 +3,4 @@ project(PRI_Project_3 C)
 
 set(CMAKE_C_FLAGS  "-Wall -ansi")
 
-add_executable(PRI_Project_3 main.c Katalog.h Samochod.h Katalog.c Samochod.c BazaSamochodow.h Menu.h Menu.c BazaSamochodow.c Struktury.h)
+add_executable(PRI_Project_3 main.c Katalog.h Samochod.h Katalog.c Samochod.c BazaSamochodow.h Menu.h Menu.c BazaSamochodow.c Struktury.h ObslugaPlikow.h ObslugaPlikow.c)

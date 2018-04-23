@@ -18,11 +18,9 @@ void menu(BazaSamochodow* bazaSamochodow)
                    "9.Wyświetlanie zawartosci wybranego katalogu\n"
                    "10.Zapis do pliku tekstowego\n"
                    "11.Odczyt z pliku tekstowego\n"
-                   "12.Zapis do pliku binarnego\n"
-                   "13.Odczyt z pliku binarnego\n"
-                   "14.Wyjscie z programu\n");
+                   "12.Wyjscie z programu\n");
     float n;
-    while (!scanf("%f", &n) || n < 1 || n > 14 || n - (int) n != 0) {
+    while (!scanf("%f", &n) || n < 1 || n > 12 || n - (int) n != 0) {
         printf("Podaj dodatnia liczbe calkowita z przedzialu 1-10!\n");
         int c;
         while ((c = getchar()) != '\n' && c != EOF);
@@ -73,14 +71,6 @@ void menu(BazaSamochodow* bazaSamochodow)
             menu(bazaSamochodow);
             break;
         case 12:
-            zapisDoPlikuBin(bazaSamochodow);
-            menu(bazaSamochodow);
-            break;
-        case 13:
-            odczytZPlikuBin(bazaSamochodow);
-            menu(bazaSamochodow);
-            break;
-        case 14:
             zamykanie(bazaSamochodow);
             break;
     }
@@ -468,22 +458,37 @@ void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow)
 }
 void zapisDoPliku(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
+    printf("Podaj nazwe pliku\n");
+    char nazwa[DLUGOSC + 1] = "";
+    int sn = 0;
+    int c;
+    while ((c = getchar()) != EOF  && c!=' '&& sn < DLUGOSC) {
+        if (!(sn == 0 && c == '\n')) {
+            if (c == '\n') {
+                break;
+            }
+            nazwa[sn] =(char)c;
+            sn++;
+        }
+    }
+    nazwa[sn]='\000';
+    int plik=sprawdzNazwePilku(nazwa,sn);
+    switch (plik){
+        case 1:
+            zapisDoPlikuTxt(nazwa);
+            break;
+        case 2:
+            zapisDoPlikuBin(nazwa);
+            break;
+        case 0:
+            printf("Bledna nazwa pliku\n");
+            zapisDoPliku(bazaSamochodow);
+            break;
+    }
 }
 void odczytZPliku(BazaSamochodow* bazaSamochodow)
 {
     /*TODO*/
 
 }
-void zapisDoPlikuBin(BazaSamochodow* bazaSamochodow)
-{
-    /*TODO*/
-
-}
-void odczytZPlikuBin(BazaSamochodow* bazaSamochodow)
-{
-    /*TODO*/
-
-}
-
 

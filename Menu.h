@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include "Struktury.h"
 #include "BazaSamochodow.h"
-
+#include "ObslugaPlikow.h"
 void menu(BazaSamochodow* );
 void tworzenieKatalogu(BazaSamochodow* );
 void zmianaNazwyKatalogu( BazaSamochodow* );
@@ -26,6 +26,4 @@ bool sprawdzKatalog(char nazwa[],int dlugosc);
 void sortowanieListyKatalogow(BazaSamochodow*);
 void zapisDoPliku(BazaSamochodow*);
 void odczytZPliku(BazaSamochodow*);
-void zapisDoPlikuBin(BazaSamochodow*);
-void odczytZPlikuBin(BazaSamochodow*);
 #endif /*PRI_PROJECT_3_MENU_H*/
