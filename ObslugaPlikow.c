@@ -28,7 +28,15 @@ int sprawdzNazwePilku(char nazwa[],int dlugosc)/* 0-bledna nazwa, 1- txt 0-bin*/
 void zapisDoPlikuTxt(char nazwa[])
 {
     printf("TXT\n");
-    /*TODO*/
+    FILE *file;
+    file=fopen(nazwa,"w");
+    if(file==NULL)
+    {
+        printf("Nie mozna otworzyc pliku %s\n",nazwa);
+        return;
+    }
+    fprintf(file,"hurra");
+    fclose(file);
 }
 void zapisDoPlikuBin(char nazwa[])
 {
