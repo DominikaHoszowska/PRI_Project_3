@@ -1,6 +1,7 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include "ObslugaPlikow.h"
-#include "stdio.h"
+#include "Struktury.h"
+
 #define DLUGOSC 15
 
 int sprawdzNazwePilku(char nazwa[],int dlugosc)/* 0-bledna nazwa, 1- txt 0-bin*/
@@ -25,9 +26,8 @@ int sprawdzNazwePilku(char nazwa[],int dlugosc)/* 0-bledna nazwa, 1- txt 0-bin*/
     return 0;
 }
 
-void zapisDoPlikuTxt(char nazwa[])
+void zapisDoPlikuTxt(char nazwa[],BazaSamochodow* bazaSamochodow)
 {
-    printf("TXT\n");
     FILE *file;
     file=fopen(nazwa,"w");
     if(file==NULL)
@@ -35,10 +35,22 @@ void zapisDoPlikuTxt(char nazwa[])
         printf("Nie mozna otworzyc pliku %s\n",nazwa);
         return;
     }
-    fprintf(file,"hurra");
+    sortowanieListyKatalogow(bazaSamochodow);
+    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+    while(katalog)
+    {
+        sortujKatalog(katalog->katalog_);
+        ElListyKatalog* samochod=katalog->katalog_->pierwszy_;
+        while(samochod)
+        {
+            wypiszSamochod(file,samochod->samochod_);
+            samochod=samochod->nastepny_;
+        }
+        katalog=katalog->nastepny_;
+    }
     fclose(file);
 }
-void zapisDoPlikuBin(char nazwa[])
+void zapisDoPlikuBin(char nazwa[],BazaSamochodow* bazaSamochodow)
 {
     char haslo[DLUGOSC + 1] = "";
     int sn = 0;
@@ -53,4 +65,35 @@ void zapisDoPlikuBin(char nazwa[])
         }
     }
     /*TODO*/
+}
+void wypiszSamochod(FILE* file,Samochod* samochod)
+{
+    fprintf(file,"%s ",samochod->nazwa_);
+    wypiszIdF(file,samochod->id_);
+    fprintf(file," %d %s\n",samochod->przebieg_,samochod->dzial_->nazwa_);
+}
+void wypiszIdF(FILE* file,int id)
+{
+    if(id<10)
+    {
+        fprintf(file,"0000%-1d",id);
+        return;
+    }
+    if(id<100)
+    {
+        fprintf(file,"000%-2d",id);
+        return;
+    }
+    if(id<1000)
+    {
+        fprintf(file,"00%-3d",id);
+        return;
+    }
+    if(id<10000)
+    {
+        fprintf(file,"0%-4d",id);
+        return;
+    }
+    fprintf(file,"%-5d",id);
+
 }

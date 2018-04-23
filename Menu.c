@@ -475,10 +475,10 @@ void zapisDoPliku(BazaSamochodow* bazaSamochodow)
     int plik=sprawdzNazwePilku(nazwa,sn);
     switch (plik){
         case 1:
-            zapisDoPlikuTxt(nazwa);
+            zapisDoPlikuTxt(nazwa,bazaSamochodow);
             break;
         case 2:
-            zapisDoPlikuBin(nazwa);
+            zapisDoPlikuBin(nazwa,bazaSamochodow);
             break;
         case 0:
             printf("Bledna nazwa pliku\n");
