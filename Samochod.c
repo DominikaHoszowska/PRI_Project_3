@@ -30,7 +30,6 @@ void wprowadzanieNazwy(char nazwa_[]) {
 }
 
 bool sprawdzNazwe(char nazwa[], int dlugosc) {
-    bool spr = 1;
     if ((nazwa[0] >= 'A' && nazwa[0] <= 'Z' )|| (nazwa[0]>='a' && nazwa[0]<='z')){
         if(nazwa[0]>='a' && nazwa[0]<='z')
         {
@@ -41,22 +40,22 @@ bool sprawdzNazwe(char nazwa[], int dlugosc) {
         for (; i < dlugosc; i++) {
             if (!((nazwa[i] >= 'A' && nazwa[i] <= 'Z') || (nazwa[i] >= 'a' && nazwa[i] <= 'z') ||
                   (nazwa[i] >= '0' && nazwa[i] <= '9')||nazwa[i]==' ')) {
-                spr = 0;
+                return 0;
             }
             else {
                 if ((((nazwa[i - 1] >= 'A' && nazwa[i - 1] <= 'Z') || (nazwa[i - 1] >= 'a' && nazwa[i - 1] <= 'z')) &&
                      nazwa[i] >= '0' && nazwa[i] <= '9') ||
                     (((nazwa[i] >= 'A' && nazwa[i] <= 'Z') || (nazwa[i] >= 'a' && nazwa[i] <= 'z')) &&
                      nazwa[i - 1] >= '0' && nazwa[i - 1] <= '9')) {
-                    spr = 0;
+                    return  0;
                 }
             }
         }
     }
     else {
-        spr = 0;
+        return 0;
     }
-    return spr;
+    return 1;
 }
 void wprowadzaniePrzebiegu(int *przebieg_) {
     float n;

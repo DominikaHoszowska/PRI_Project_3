@@ -1,4 +1,5 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
+#include <memory.h>
 #include "ObslugaPlikow.h"
 #include "Struktury.h"
 
@@ -124,4 +125,111 @@ void wypiszSamochodB(FILE* file,Samochod* samochod)
     fwrite(&samochod->przebieg_, sizeof(int), 1,file);
     fwrite(samochod->dzial_->nazwa_, sizeof(char), sizeof(samochod->dzial_->nazwa_),file);
     fprintf(file,"\n");
+}
+void odczytZPlikuT(char nazwa[],BazaSamochodow* bazaSamochodow)
+{
+    FILE *file;
+    file=fopen(nazwa,"r");
+    if(file==NULL)
+    {
+        printf("Nie mozna otworzyc pliku %s\n",nazwa);
+        return;
+    }
+    char samochod[4*DLUGOSC];
+    char* wynik;
+    while (!feof(file))
+    {
+        wynik="";
+        wynik=fgets(samochod,4*DLUGOSC,file);
+        int r=rozmiar(samochod);
+        dodajSamochodf(bazaSamochodow,samochod,r);
+    }
+    fclose(file);
+
+
+}
+void odczytZPlikuBin(char nazwa[],BazaSamochodow* bazaSamochodow)
+{
+    /*TODO*/
+}
+int rozmiar(char napis[])
+{
+    int r=0;
+    while(napis[r]!='\n')
+    {
+        r++;
+    }
+    return r+1;
+}
+void dodajSamochodf(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar)
+{
+    int i=rozmiar-1;
+    napis[i]='\000';
+    while(napis[i]!=32)
+    {
+        i--;
+    }
+    int dlugoscKat=rozmiar-i-2;
+    if(dlugoscKat>DLUGOSC)
+    {
+        return;
+    }
+    char katalog[DLUGOSC+1];
+    strcpy(katalog,&napis[i+1]);
+    int j;
+    for (j=rozmiar-1;j>i;j--)
+    {
+        napis[j]='\000';
+    }
+    i--;
+    while (napis[i]!=32)
+    {
+        i--;
+    }
+    int przebieg=zamienNaLiczbe(&napis[i+1],j-i-1);
+    if(przebieg<0)
+    {
+        return;
+    }
+    for(;j>i;j--)
+    {
+        napis[j]='\000';
+    }
+    i--;
+    while (napis[i]!=32)
+    {
+        i--;
+    }
+    int id=zamienNaLiczbe(&napis[i+1],j-i-1);
+    if(id<0 || !czyUnikalneId(id,bazaSamochodow))
+    {
+        return;
+    }
+    for(;j>=i;j--)
+    {
+        napis[j]='\000';
+    }
+    if(!sprawdzNazwe(napis,i))
+    {
+        return;
+    }
+    if(!czyIstniejeKatalog(bazaSamochodow,&katalog,rozmiar))
+    stworzKatalog(bazaSamochodow,katalog);
+    stworzSamochod(bazaSamochodow,katalog,napis,id,przebieg);
+}
+int zamienNaLiczbe(char liczba[],int rozmiar)
+{
+    int wynik=0;
+    int d=1;
+    rozmiar--;
+    for(;rozmiar>=0;rozmiar--)
+    {
+        if(liczba[rozmiar]<'0'||liczba[rozmiar]>'9')
+        {
+            return -1;
+        }
+        wynik+=(liczba[rozmiar]-'0')*d;
+        d*=10;
+    }
+    return wynik;
 }

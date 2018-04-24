@@ -15,6 +15,7 @@ void usunCalyKatalog(Katalog* katalog)
         elem=elem->nastepny_;
         free(pomoc->samochod_);
         free(pomoc);
+        katalog->dlugosc_--;
     }
 }
 void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)

@@ -488,7 +488,32 @@ void zapisDoPliku(BazaSamochodow* bazaSamochodow)
 }
 void odczytZPliku(BazaSamochodow* bazaSamochodow)
 {
-    /*TODO*/
-
+    printf("Podaj nazwe pliku\n");
+    char nazwa[DLUGOSC + 1] = "";
+    int sn = 0;
+    int c;
+    while ((c = getchar()) != EOF  && c!=' '&& sn < DLUGOSC) {
+        if (!(sn == 0 && c == '\n')) {
+            if (c == '\n') {
+                break;
+            }
+            nazwa[sn] =(char)c;
+            sn++;
+        }
+    }
+    nazwa[sn]='\000';
+    int plik=sprawdzNazwePilku(nazwa,sn);
+    switch (plik){
+        case 1:
+            odczytZPlikuT(nazwa,bazaSamochodow);
+            break;
+        case 2:
+            odczytZPlikuBin(nazwa,bazaSamochodow);
+            break;
+        case 0:
+            printf("Bledna nazwa pliku\n");
+            zapisDoPliku(bazaSamochodow);
+            break;
+    }
 }
 

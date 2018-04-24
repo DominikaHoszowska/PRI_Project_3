@@ -11,7 +11,10 @@ void zapisDoPlikuTxt(char nazwa[],BazaSamochodow*);
 void wypiszSamochod(FILE*,Samochod*);
 void zapisDoPlikuBin(char nazwa[],BazaSamochodow*);
 void wypiszSamochodB(FILE*,Samochod*);
-
 void wypiszIdF(FILE* file,int id);
-
+void odczytZPlikuT(char[],BazaSamochodow*);
+void odczytZPlikuBin(char[],BazaSamochodow*);
+int rozmiar(char[]);
+void dodajSamochodf(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar);
+int zamienNaLiczbe(char liczba[],int rozmiar);
 #endif /*PRI_PROJECT_3_OBSLUGAPLIKOW_H*/

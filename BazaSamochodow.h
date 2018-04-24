@@ -21,4 +21,7 @@ void wyswietlSamochodyPrzebieg2(BazaSamochodow* bazaSamochodow,int przebieg);
 void wyswietlSamochody(Katalog*);
 void wyswietlSamochodyNazwa2(BazaSamochodow* bazaSamochodow, char nazwa[]);
 void wyswietlSamochodyID2(BazaSamochodow*,int);
+bool czyIstniejeKatalog(BazaSamochodow* bazaSamochodow,char nazwa[],int dlugosc);
+void stworzSamochod(BazaSamochodow*,char[],char[],int,int);
+Katalog* zwrocKatalog(BazaSamochodow*,char[]);
 #endif /*PRI_PROJECT_3_BAZASAMOCHODOW_H*/

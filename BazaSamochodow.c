@@ -2,6 +2,7 @@
 #include <memory.h>
 #include <malloc.h>
 #include "BazaSamochodow.h"
+#include "Struktury.h"
 
 
 
@@ -21,7 +22,8 @@ bool czyUnikalnyKatalog(BazaSamochodow* bazaSamochodow, char katalog[])
     return 1;
 }
 void stworzKatalog(BazaSamochodow* bazaSamochodow, char nazwa[]) {
-    Katalog *katalog = (Katalog *) malloc(sizeof(Katalog));
+    Katalog *katalog;
+    katalog= (Katalog*) malloc(sizeof(Katalog));
     strcpy(katalog->nazwa_, nazwa);
     katalog->dlugosc_ = 0;
     katalog->pierwszy_ = NULL;
@@ -111,6 +113,7 @@ void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu)
     {
         element=element->nastepny_;
     }
+    bazaSamochodow->iloscSamochodow_-=element->katalog_->dlugosc_;
     usunCalyKatalog(element->katalog_);
     element->poprzedni_->nastepny_=element->nastepny_;
     element->nastepny_->poprzedni_=element->poprzedni_;
@@ -261,4 +264,55 @@ void wyswietlSamochodyID2(BazaSamochodow* bazaSamochodow, int id)
         katalog=katalog->nastepny_;
     }
     printf("Brak samochodow o podanym id\n");
+}
+bool czyIstniejeKatalog(BazaSamochodow* bazaSamochodow,char nazwa[],int dlugosc)
+{
+    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+    while (katalog)
+    {
+        if(strcmp(katalog->katalog_->nazwa_,nazwa)==0)
+        {
+            return 1;
+        }
+        katalog=katalog->nastepny_;
+    }
+    return 0;
+}
+void stworzSamochod(BazaSamochodow* bazaSamochodow,char katalog[],char nazwa[],int id,int przebieg)
+{
+    Katalog* katalog1=zwrocKatalog(bazaSamochodow,katalog);
+    Samochod* samochod=(Samochod*)malloc(sizeof(Samochod));
+    strcpy(samochod->nazwa_,nazwa);
+    samochod->id_=id;
+    samochod->przebieg_=przebieg;
+    samochod->dzial_=katalog1;
+    ElListyKatalog* elem=(ElListyKatalog*)malloc(sizeof(ElListyKatalog));
+    elem->nastepny_=NULL;
+    elem->samochod_=samochod;
+    if(!katalog1->dlugosc_)
+    {
+        elem->poprzedni_=NULL;
+        katalog1->pierwszy_=elem;
+    } else
+    {
+        elem->poprzedni_=katalog1->ostatni_;
+        katalog1->ostatni_->nastepny_=elem;
+        katalog1->ostatni_=elem;
+    }
+    katalog1->ostatni_=elem;
+    katalog1->dlugosc_++;
+    bazaSamochodow->iloscSamochodow_++;
+}
+Katalog* zwrocKatalog(BazaSamochodow* bazaSamochodow,char nazwa[])
+{
+    ElListyBaza* ele=bazaSamochodow->pierwszy_;
+    while (ele)
+    {
+        if(!strcmp(nazwa,ele->katalog_->nazwa_))
+        {
+            return ele->katalog_;
+        }
+        ele=ele->nastepny_;
+    }
+    return NULL;
 }
