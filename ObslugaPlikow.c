@@ -1,7 +1,6 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include <memory.h>
 #include "ObslugaPlikow.h"
-#include "Struktury.h"
 
 #define DLUGOSC 15
 

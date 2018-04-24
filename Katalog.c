@@ -2,7 +2,6 @@
 #include <malloc.h>
 #include <memory.h>
 #include "Katalog.h"
-#include "Struktury.h"
 
 /*Created by Dominika Hoszowska on 17.04.18.*/
 
