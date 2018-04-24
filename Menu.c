@@ -502,8 +502,7 @@ void odczytZPliku(BazaSamochodow* bazaSamochodow)
         }
     }
     nazwa[sn]='\000';
-    int plik=sprawdzNazwePilku(nazwa,sn);
-    switch (plik){
+    switch (sprawdzNazwePilku(nazwa,sn)){
         case 1:
             odczytZPlikuT(nazwa,bazaSamochodow);
             break;
@@ -514,6 +513,9 @@ void odczytZPliku(BazaSamochodow* bazaSamochodow)
             printf("Bledna nazwa pliku\n");
             zapisDoPliku(bazaSamochodow);
             break;
+        default:
+            printf("Wystapil blad\n");
+            menu(bazaSamochodow);
     }
 }
 

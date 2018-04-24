@@ -136,11 +136,9 @@ void odczytZPlikuT(char nazwa[],BazaSamochodow* bazaSamochodow)
         return;
     }
     char samochod[4*DLUGOSC];
-    char* wynik;
     while (!feof(file))
     {
-        wynik="";
-        wynik=fgets(samochod,4*DLUGOSC,file);
+        fgets(samochod,4*DLUGOSC,file);
         int r=rozmiar(samochod);
         dodajSamochodf(bazaSamochodow,samochod,r);
     }
@@ -213,8 +211,9 @@ void dodajSamochodf(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar)
     {
         return;
     }
-    if(!czyIstniejeKatalog(bazaSamochodow,katalog,rozmiar))
-        stworzKatalog(bazaSamochodow,katalog);
+    if(!czyIstniejeKatalog(bazaSamochodow,katalog,rozmiar)) {
+        stworzKatalog(bazaSamochodow, katalog);
+    }
     stworzSamochod(bazaSamochodow,katalog,napis,id,przebieg);
 }
 int zamienNaLiczbe(char liczba[],int rozmiar)

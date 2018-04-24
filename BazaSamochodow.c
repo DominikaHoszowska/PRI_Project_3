@@ -100,6 +100,7 @@ void usunWszystko(BazaSamochodow* bazaSamochodow)
     {
         bazaSamochodow->pierwszy_=elem->nastepny_;
         usunCalyKatalog(elem->katalog_);
+        free(elem->katalog_);
         free(elem);
         elem=bazaSamochodow->pierwszy_;
     }
@@ -267,7 +268,7 @@ void wyswietlSamochodyID2(BazaSamochodow* bazaSamochodow, int id)
 }
 bool czyIstniejeKatalog(BazaSamochodow* bazaSamochodow,char nazwa[],int dlugosc)
 {
-    ElListyBaza* katalog=bazaSamochodow->pierwszy_;
+     ElListyBaza* katalog=bazaSamochodow->pierwszy_;
     while (katalog)
     {
         if(strcmp(katalog->katalog_->nazwa_,nazwa)==0)

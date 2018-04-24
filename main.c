@@ -11,7 +11,7 @@ int main(int argc,char *argv[]) {
                    "Program umozliwa tworzenie i edycje bazy samochodow\n");
     BazaSamochodow* bazaSamochodow;
     bazaSamochodow=(BazaSamochodow*)malloc(sizeof(BazaSamochodow));
+    bazaSamochodow->dlugosc_=0;
     menu(bazaSamochodow);
-
     return 0;
 }

@@ -16,6 +16,7 @@ void usunCalyKatalog(Katalog* katalog)
         free(pomoc);
         katalog->dlugosc_--;
     }
+
 }
 void dodajSamochod(Katalog* katalog,BazaSamochodow* bazaSamochodow)
 {
