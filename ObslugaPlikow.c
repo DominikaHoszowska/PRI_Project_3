@@ -86,6 +86,7 @@ void zapisDoPlikuBin(char nazwa[],BazaSamochodow* bazaSamochodow)
         katalog=katalog->nastepny_;
     }
     fclose(file);
+    /*TODO*/
 }
 void wypiszSamochod(FILE* file,Samochod* samochod)
 {
