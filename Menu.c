@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <memory.h>
 #include "Menu.h"
-#include "Struktury.h"
 
 void menu(BazaSamochodow* bazaSamochodow)
 {
@@ -13,9 +12,9 @@ void menu(BazaSamochodow* bazaSamochodow)
                    "4.Dodanie samochodu\n"
                    "5.Edycja samochodu\n"
                    "6.Przenoszenie samochochodu miedzy katalogami\n"
-                   "7.Wyświetlanie samochodów\n"
-                   "8.Wyświetkanie listy katalogów\n"
-                   "9.Wyświetlanie zawartosci wybranego katalogu\n"
+                   "7.Wyswietlanie samochodów\n"
+                   "8.Wyswietkanie listy katalogów\n"
+                   "9.Wyswietlanie zawartosci wybranego katalogu\n"
                    "10.Zapis do pliku tekstowego\n"
                    "11.Odczyt z pliku tekstowego\n"
                    "12.Wyjscie z programu\n");
@@ -86,7 +85,7 @@ void tworzenieKatalogu(BazaSamochodow* bazaSamochodow)
             if (c == '\n') {
                 break;
             }
-            katalog[sn] = c;
+            katalog[sn] = (char)c;
             sn++;
         }
     }
@@ -147,7 +146,7 @@ void zmianaNazwyKatalogu(BazaSamochodow* bazaSamochodow)
         }
         if(n!=bazaSamochodow->dlugosc_+1)
         {
-            zmianaNazwyKatalogu2(bazaSamochodow,n);
+            zmianaNazwyKatalogu2(bazaSamochodow,(int)n);
         }
     }
     else
@@ -174,7 +173,7 @@ void usuniecieKatalogu(BazaSamochodow* bazaSamochodow)
         }
         if(n!=bazaSamochodow->dlugosc_+1)
         {
-            usuniecieKatalogu2(bazaSamochodow,n);
+            usuniecieKatalogu2(bazaSamochodow,(int)n);
         }
 
     }
@@ -201,7 +200,7 @@ void dodanieSamochodu(BazaSamochodow* bazaSamochodow)
         }
         if(n!=bazaSamochodow->dlugosc_+1)
         {
-            Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,n);
+            Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,(int)n);
             dodajSamochod(katalog,bazaSamochodow);
 
         }
@@ -344,7 +343,7 @@ void wyswietlanieKatalogu(BazaSamochodow* bazaSamochodow)
         }
         if(n!=bazaSamochodow->dlugosc_+1)
         {
-            Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,n);
+            Katalog* katalog=zwrocNtyKatalog(bazaSamochodow,(int)n);
             printf("%-15s|%-15s|%-5s|%-5s\n", "Dzial", "Nazwa samochodu", "Numer", "Przebieg");
             wyswietlKatalog(katalog);
             printf("\n");
@@ -364,8 +363,9 @@ void wyswietlWszystkieSamochody(BazaSamochodow* bazaSamochodow)
         while (elem)
         {
             if(elem->katalog_->dlugosc_)/*Nie wyswietla pustych katalogow*/
-            wyswietlKatalog(elem->katalog_);
-            printf("\n");
+            {   wyswietlKatalog(elem->katalog_);
+                printf("\n");
+            }
             elem=elem->nastepny_;
         }
 
@@ -398,7 +398,7 @@ void wyswietlSamochodyId(BazaSamochodow* bazaSamochodow)
         int c;
         while ((c = getchar()) != '\n' && c != EOF);
     }
-    wyswietlSamochodyID2(bazaSamochodow,n);
+    wyswietlSamochodyID2(bazaSamochodow,(int)n);
 }
 void wyswietlSamochodNazwa(BazaSamochodow*bazaSamochodow)
 {
@@ -426,7 +426,7 @@ void zamykanie( BazaSamochodow* bazaSamochodow)
 
 void sortowanieListyKatalogow(BazaSamochodow* bazaSamochodow)
 {
-    ElListyBaza* element=bazaSamochodow->pierwszy_;
+    ElListyBaza* element;
     ElListyBaza* elementnast;
     int i,j;
     bool zamiana;

@@ -214,8 +214,8 @@ void dodajSamochodf(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar)
     {
         return;
     }
-    if(!czyIstniejeKatalog(bazaSamochodow,&katalog,rozmiar))
-    stworzKatalog(bazaSamochodow,katalog);
+    if(!czyIstniejeKatalog(bazaSamochodow,katalog,rozmiar))
+        stworzKatalog(bazaSamochodow,katalog);
     stworzSamochod(bazaSamochodow,katalog,napis,id,przebieg);
 }
 int zamienNaLiczbe(char liczba[],int rozmiar)
