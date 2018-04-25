@@ -4,15 +4,8 @@
 
 #define DLUGOSC 15
 
-int sprawdzNazwePilku(char nazwa[], int dlugosc)/* 0-bledna nazwa, 1- txt 0-bin*/
+int sprawdzNazwePilku(char nazwa[], int dlugosc)/* 0-bledna nazwa, 1- txt 2-bin*/
 {
-    int i = 0;
-    while (nazwa[i] != '.' && i < dlugosc) { /*TODO : niekonieczne */
-        i++;
-    }
-    if (i != dlugosc - 4) {
-        return 0;
-    }
 
     if (nazwa[dlugosc - 3] == 't' && nazwa[dlugosc - 2] == 'x' && nazwa[dlugosc - 1] == 't') {
         return 1;
