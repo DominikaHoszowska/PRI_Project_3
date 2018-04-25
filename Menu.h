@@ -21,7 +21,7 @@ void wyswietlWszystkieSamochody(BazaSamochodow*);
 void wyswietlSamochodyPrzebieg(BazaSamochodow*);
 void wyswietlSamochodyId(BazaSamochodow*);
 void wyswietlSamochodNazwa(BazaSamochodow*);
-void zamykanie(BazaSamochodow* );
+int zamykanie(BazaSamochodow* );
 bool sprawdzKatalog(char nazwa[],int dlugosc);
 void sortowanieListyKatalogow(BazaSamochodow*);
 void zapisDoPliku(BazaSamochodow*);

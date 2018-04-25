@@ -11,7 +11,7 @@
 bool czyUnikalnyKatalog(BazaSamochodow* bazaSamochodow, char katalog[])
 {
     ElListyBaza* elListyBaza=bazaSamochodow->pierwszy_;
-    while (elListyBaza)
+    while (elListyBaza != NULL)
     {
         if(!strcmp(elListyBaza->katalog_->nazwa_,katalog))
         {
@@ -104,7 +104,6 @@ void usunWszystko(BazaSamochodow* bazaSamochodow)
         free(elem);
         elem=bazaSamochodow->pierwszy_;
     }
-    free(bazaSamochodow);
 }
 void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu)
 {
