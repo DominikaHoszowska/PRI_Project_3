@@ -155,20 +155,25 @@ int zwrocRozmiar(char nazwa[])
 }
 int zamienNaCharPrzebieg(int liczba,char wynik[])
 {
-    zamienNaCharID(liczba,wynik);
-    int i;
-    int licznik=0;
-    while(wynik[0]!=0 && wynik[0]!='\n')
+    int i=0;
+    while(liczba)
     {
-        i=0;
-        licznik++;
-        while (wynik[i]!='\0')
-        {
-            wynik[i]=wynik[i+1];
-            ++i;
-        }
+        wynik[i]=(liczba%10)+'0';
+        liczba/=10;
+        i++;
     }
-    return 5-licznik;
+    int j=0;
+    int k=i-1;
+    while (j<k)
+    {
+        char pomoc=wynik[j];
+        wynik[j]=wynik[k];
+        wynik[k]=pomoc;
+        j++;
+        k--;
+    }
+
+    return i;
 }
 int zamienNaCharID(int liczba,char wynik[])
 {
@@ -192,6 +197,7 @@ void wypiszSamochodB(FILE *file, Samochod *samochod, char haslo[], int rozmiarHa
     strcpy(nazwa,wynik);
     fwrite(nazwa, sizeof(char), rozmiar, file);
     fwrite(" ", sizeof(char), 1, file);
+
 
     char pomoc[DLUGOSC+1];
     rozmiar=zamienNaCharID(samochod->id_,pomoc);
@@ -229,9 +235,74 @@ void odczytZPlikuT(char nazwa[], BazaSamochodow *bazaSamochodow) {
         dodajSamochodf(bazaSamochodow, samochod, r);
     }
     fclose(file);
-
-
 }
+void dodajSamochodfb(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar, char haslo[],int rozmiarHasla)
+{
+    int i = rozmiar - 1;
+    char wynik[DLUGOSC+1];
+    napis[i] = '\000';
+    while (napis[i] != ' ') {
+        i--;
+    }
+    int dlugoscKat = rozmiar - i - 2;
+    if (dlugoscKat > DLUGOSC) {
+        return;
+    }
+    char katalog[DLUGOSC + 1];
+    strcpy(wynik, (napis + i + 1));
+    szyfruj(katalog,wynik,dlugoscKat,haslo,rozmiarHasla);
+
+
+    int j = i;
+    napis[i] = '\0';
+    i--;
+    while (napis[i] != ' ') {
+        i--;
+    }
+    strcpy(wynik,"");
+    strncpy(wynik,&napis[i+1],j-i-1);
+    char przebieg2[DLUGOSC+1]="";
+    szyfruj(przebieg2,wynik,j-i-1,haslo,rozmiarHasla);
+
+    int przebieg = zamienNaLiczbe(przebieg2, j - i - 1);
+    if (przebieg < 0) {
+        return;
+    }
+    for (; j > i; j--) {
+        napis[j] = '\0';
+    }
+    i--;
+    while (napis[i] != 32) {
+        i--;
+    }
+    strcpy(przebieg2,"");
+    strcpy(wynik,"");
+    strncpy(wynik,&napis[i+1],j-i-1);
+    szyfruj(przebieg2,wynik,j-i-1,haslo,rozmiarHasla);
+
+    int id = zamienNaLiczbe(przebieg2, j - i - 1);
+    if (id < 0 || !czyUnikalneId(id, bazaSamochodow)) {
+        return;
+    }
+    for (; j >= i; j--) {
+        napis[j] = '\000';
+    }
+    strcpy(wynik,"");
+    strncpy(wynik,napis,i);
+    strcpy(przebieg2,"");
+    szyfruj(przebieg2,wynik,i,haslo,rozmiarHasla);
+
+    if (!sprawdzNazwe(przebieg2, i)) {
+        return;
+    }
+    if (!czyIstniejeKatalog(bazaSamochodow, katalog, rozmiar)) {
+        stworzKatalog(bazaSamochodow, katalog);
+    }
+    stworzSamochod(bazaSamochodow, katalog, napis, id, przebieg);
+}
+
+
+
 
 void odczytZPlikuBin(char nazwa[], BazaSamochodow *bazaSamochodow) {
     FILE *file;
@@ -244,14 +315,13 @@ void odczytZPlikuBin(char nazwa[], BazaSamochodow *bazaSamochodow) {
     char haslo[DLUGOSC+1]="";
     if(!feof(file))
     fgets(tekst,DLUGOSC+1, file);
-    int i=0;
     int rozmiarhasla=odczytajhaslo(haslo,tekst);
     while(!wczytajhaslo(haslo,rozmiarhasla));
     char samochod[4 * DLUGOSC];
     while (!feof(file)) {
         fgets(samochod, 4 * DLUGOSC, file);
         int r = rozmiar(samochod);
-        dodajSamochodfb(bazaSamochodow, samochod, r);
+        dodajSamochodfb(bazaSamochodow, samochod, r,haslo,rozmiarhasla);
     }
     fclose(file);
 }
