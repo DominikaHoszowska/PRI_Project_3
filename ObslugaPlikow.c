@@ -1,7 +1,8 @@
 /*Created by Dominika Hoszowska on 17.04.18.*/
 #include <memory.h>
 #include "ObslugaPlikow.h"
-
+#include "Struktury.h"
+#include <crypt.h>
 #define DLUGOSC 15
 
 int sprawdzNazwePilku(char nazwa[], int dlugosc)/* 0-bledna nazwa, 1- txt 2-bin*/
@@ -36,39 +37,75 @@ void zapisDoPlikuTxt(char nazwa[], BazaSamochodow *bazaSamochodow) {
     }
     fclose(file);
 }
+ int ustawHaslo(char haslo[])
+ {
 
+     printf("Podaj haslo\n");
+     int sn = 0;
+     int c;
+     while ((c = getchar()) != EOF && c != ' ' && sn < DLUGOSC) {
+         if (!(sn == 0 && c == '\n')) {
+             if (c == '\n') {
+                 break;
+             }
+             haslo[sn] = (char) c;
+             sn++;
+         }
+     }
+     char hasloPotwierdzenie[DLUGOSC+1]="";
+     int i=0;
+     sn=0;
+     while(i<3)
+     {
+         printf("Potwierdz haslo\n");
+         while ((c = getchar()) != EOF && c != ' ' && sn < DLUGOSC) {
+             if (!(sn == 0 && c == '\n')) {
+                 if (c == '\n') {
+                     break;
+                 }
+                 hasloPotwierdzenie[sn] = (char) c;
+                 sn++;
+             }
+         }
+         if(!strcmp(haslo,hasloPotwierdzenie))
+         {
+             return sn;
+         }
+         i++;
+     }
+     return 0;
+ }
 void zapisDoPlikuBin(char nazwa[], BazaSamochodow *bazaSamochodow) {
-    char haslo[DLUGOSC + 1] = "";
-    int sn = 0;
-    int c;
-    while ((c = getchar()) != EOF && c != ' ' && sn < DLUGOSC) {
-        if (!(sn == 0 && c == '\n')) {
-            if (c == '\n') {
-                break;
-            }
-            haslo[sn] = (char) c;
-            sn++;
-        }
-    }
+
     FILE *file;
     file = fopen(nazwa, "wb");
     if (file == NULL) {
         printf("Nie mozna otworzyc pliku %s\n", nazwa);
         return;
     }
+    char haslo[DLUGOSC + 1] = "";
+    int rozmiar=ustawHaslo(haslo);
+    while(!rozmiar)
+    {
+        rozmiar=ustawHaslo(haslo);
+    };
+    char wynik[DLUGOSC+1]="";
+    szyfruj(wynik,haslo,rozmiar,"a",1);
+    fwrite(wynik, sizeof(char), rozmiar,file);
+    fwrite("\n", sizeof(char),1,file);
+
     sortowanieListyKatalogow(bazaSamochodow);
     ElListyBaza *katalog = bazaSamochodow->pierwszy_;
     while (katalog) {
         sortujKatalog(katalog->katalog_);
         ElListyKatalog *samochod = katalog->katalog_->pierwszy_;
         while (samochod) {
-            wypiszSamochodB(file, samochod->samochod_);
+            wypiszSamochodB(file, samochod->samochod_,haslo,rozmiar);
             samochod = samochod->nastepny_;
         }
         katalog = katalog->nastepny_;
     }
     fclose(file);
-    /*TODO*/
 }
 
 void wypiszSamochod(FILE *file, Samochod *samochod) {
@@ -97,13 +134,85 @@ void wypiszIdF(FILE *file, int id) {
     fprintf(file, "%-5d", id);
 
 }
+void szyfruj(char wynik[],char dane[], int rozmiar, char haslo[], int rozmiarHasla)
+{
+    int i;
+    for(i=0;i<rozmiar;i++)
+    {
+        char j=haslo[i%rozmiarHasla];
+        wynik[i]=dane[i]^j;
+    }
+    wynik[rozmiar]='\n';
+}
+int zwrocRozmiar(char nazwa[])
+{
+    int rozmiar=0;
+    while(nazwa[rozmiar]!='\0')
+    {
+        ++rozmiar;
+    }
+    return rozmiar;
+}
+int zamienNaCharPrzebieg(int liczba,char wynik[])
+{
+    zamienNaCharID(liczba,wynik);
+    int i;
+    int licznik=0;
+    while(wynik[0]!=0 && wynik[0]!='\n')
+    {
+        i=0;
+        licznik++;
+        while (wynik[i]!='\0')
+        {
+            wynik[i]=wynik[i+1];
+            ++i;
+        }
+    }
+    return 5-licznik;
+}
+int zamienNaCharID(int liczba,char wynik[])
+{
+    int i=4;
+    while(i>=0)
+    {
+        wynik[i]=(char)(liczba%10+'0');
+        liczba/=10;
+        --i;
+    }
+    wynik[5]='\0';
+    return 5;
+}
 
-void wypiszSamochodB(FILE *file, Samochod *samochod) {
-    fwrite(samochod->nazwa_, sizeof(char), sizeof(samochod->nazwa_), file);
-    fwrite(&samochod->id_, sizeof(int), 1, file);
-    fwrite(&samochod->przebieg_, sizeof(int), 1, file);
-    fwrite(samochod->dzial_->nazwa_, sizeof(char), sizeof(samochod->dzial_->nazwa_), file);
-    fprintf(file, "\n");
+void wypiszSamochodB(FILE *file, Samochod *samochod, char haslo[], int rozmiarHasla) {
+
+    int rozmiar=zwrocRozmiar(samochod->nazwa_);
+    char nazwa[DLUGOSC+1] ="";
+    char wynik[DLUGOSC+1]="";
+    szyfruj(wynik,samochod->nazwa_,rozmiar,haslo,rozmiarHasla);
+    strcpy(nazwa,wynik);
+    fwrite(nazwa, sizeof(char), rozmiar, file);
+    fwrite(" ", sizeof(char), 1, file);
+
+    char pomoc[DLUGOSC+1];
+    rozmiar=zamienNaCharID(samochod->id_,pomoc);
+
+    szyfruj(wynik,pomoc,rozmiar,haslo,rozmiarHasla);
+    strcpy(nazwa,wynik);
+    fwrite(nazwa, sizeof(char), rozmiar, file);
+    fwrite(" ", sizeof(char), 1, file);
+
+    rozmiar=zamienNaCharPrzebieg(samochod->przebieg_,pomoc);
+    szyfruj(wynik,pomoc,rozmiar,haslo,rozmiarHasla);
+    strcpy(nazwa,wynik);
+    fwrite(nazwa, sizeof(char), rozmiar, file);
+    fwrite(" ", sizeof(char), 1, file);
+
+    rozmiar=zwrocRozmiar(samochod->dzial_->nazwa_);
+    szyfruj(wynik,samochod->dzial_->nazwa_,rozmiar,haslo,rozmiarHasla);
+    strcpy(nazwa,wynik);
+    fwrite(nazwa, sizeof(char), rozmiar, file);
+    fwrite("\n", sizeof(char), 1, file);
+
 }
 
 void odczytZPlikuT(char nazwa[], BazaSamochodow *bazaSamochodow) {
@@ -125,8 +234,63 @@ void odczytZPlikuT(char nazwa[], BazaSamochodow *bazaSamochodow) {
 }
 
 void odczytZPlikuBin(char nazwa[], BazaSamochodow *bazaSamochodow) {
-    /*TODO*/
+    FILE *file;
+    file = fopen(nazwa, "r");
+    if (file == NULL) {
+        printf("Nie mozna otworzyc pliku %s\n", nazwa);
+        return;
+    }
+    char tekst[DLUGOSC+1]="";
+    char haslo[DLUGOSC+1]="";
+    if(!feof(file))
+    fgets(tekst,DLUGOSC+1, file);
+    int i=0;
+    int rozmiarhasla=odczytajhaslo(haslo,tekst);
+    while(!wczytajhaslo(haslo,rozmiarhasla));
+    char samochod[4 * DLUGOSC];
+    while (!feof(file)) {
+        fgets(samochod, 4 * DLUGOSC, file);
+        int r = rozmiar(samochod);
+        dodajSamochodfb(bazaSamochodow, samochod, r);
+    }
+    fclose(file);
 }
+bool wczytajhaslo(char haslo[],int rozmiarhasla)
+{
+    printf("Podaj haslo\n");
+    int sn = 0;
+    int c;
+    char sprhaslo[DLUGOSC+1]="";
+    while ((c = getchar()) != EOF && c != ' ' && sn < DLUGOSC) {
+        if (!(sn == 0 && c == '\n')) {
+            if (c == '\n') {
+                break;
+            }
+            sprhaslo[sn] = (char) c;
+            sn++;
+        }
+    }
+    sprhaslo[sn]='\n';
+    if(sn!=rozmiarhasla) {
+        printf("Bledne haslo\n");
+        return 0;
+    }
+    if(!strcmp(sprhaslo,haslo)) return 1;
+    printf("Bledne haslo\n");
+    return 0;
+}
+
+int odczytajhaslo(char haslo[],char tekst[])
+{
+    int i=0;
+    while(tekst[i]!='\n')
+    {
+        ++i;
+    }
+    szyfruj(haslo,tekst,i,"a",1);
+    return i;
+}
+
 
 int rozmiar(char napis[]) {
     int r = 0;
