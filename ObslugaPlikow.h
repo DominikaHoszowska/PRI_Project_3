@@ -20,7 +20,7 @@ void odczytZPlikuBin(char[],BazaSamochodow*);
 int rozmiar(char[]);
 void dodajSamochodf(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar);
 void dodajSamochodfb(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar,char haslo[],int rozmiarHasla);
-
+void odszyfruj(char wynik[],char dane[], int rozmiar, char haslo[], int rozmiarHasla);
 int zamienNaLiczbe(char liczba[],int rozmiar);
 int odczytajhaslo(char tekst[],char haslo[]);
 bool wczytajhaslo(char haslo[],int rozmiarhasla);

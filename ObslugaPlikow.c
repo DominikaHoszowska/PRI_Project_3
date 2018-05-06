@@ -100,6 +100,7 @@ void zapisDoPlikuBin(char nazwa[], BazaSamochodow *bazaSamochodow) {
         sortujKatalog(katalog->katalog_);
         ElListyKatalog *samochod = katalog->katalog_->pierwszy_;
         while (samochod) {
+            strcpy(wynik,"");
             wypiszSamochodB(file, samochod->samochod_,haslo,rozmiar);
             samochod = samochod->nastepny_;
         }
@@ -140,6 +141,18 @@ void szyfruj(char wynik[],char dane[], int rozmiar, char haslo[], int rozmiarHas
     for(i=0;i<rozmiar;i++)
     {
         char j=haslo[i%rozmiarHasla];
+        wynik[i]=dane[i]^j;
+        wynik[i]+=33;
+    }
+    wynik[rozmiar]='\n';
+}
+void odszyfruj(char wynik[],char dane[], int rozmiar, char haslo[], int rozmiarHasla)
+{
+    int i;
+    for(i=0;i<rozmiar;i++)
+    {
+        char j=haslo[i%rozmiarHasla];
+        dane[i]-=33;
         wynik[i]=dane[i]^j;
     }
     wynik[rozmiar]='\n';
@@ -230,7 +243,7 @@ void odczytZPlikuT(char nazwa[], BazaSamochodow *bazaSamochodow) {
     }
     char samochod[4 * DLUGOSC];
     while (!feof(file)) {
-        fgets(samochod, 4 * DLUGOSC, file);
+        fgets(samochod, 4 * DLUGOSC+4, file);
         int r = rozmiar(samochod);
         dodajSamochodf(bazaSamochodow, samochod, r);
     }
@@ -250,8 +263,8 @@ void dodajSamochodfb(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar, ch
     }
     char katalog[DLUGOSC + 1];
     strcpy(wynik, (napis + i + 1));
-    szyfruj(katalog,wynik,dlugoscKat,haslo,rozmiarHasla);
-
+    odszyfruj(katalog,wynik,dlugoscKat,haslo,rozmiarHasla);
+    katalog[dlugoscKat]='\0';
 
     int j = i;
     napis[i] = '\0';
@@ -262,7 +275,7 @@ void dodajSamochodfb(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar, ch
     strcpy(wynik,"");
     strncpy(wynik,&napis[i+1],j-i-1);
     char przebieg2[DLUGOSC+1]="";
-    szyfruj(przebieg2,wynik,j-i-1,haslo,rozmiarHasla);
+    odszyfruj(przebieg2,wynik,j-i-1,haslo,rozmiarHasla);
 
     int przebieg = zamienNaLiczbe(przebieg2, j - i - 1);
     if (przebieg < 0) {
@@ -278,7 +291,7 @@ void dodajSamochodfb(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar, ch
     strcpy(przebieg2,"");
     strcpy(wynik,"");
     strncpy(wynik,&napis[i+1],j-i-1);
-    szyfruj(przebieg2,wynik,j-i-1,haslo,rozmiarHasla);
+    odszyfruj(przebieg2,wynik,j-i-1,haslo,rozmiarHasla);
 
     int id = zamienNaLiczbe(przebieg2, j - i - 1);
     if (id < 0 || !czyUnikalneId(id, bazaSamochodow)) {
@@ -290,15 +303,18 @@ void dodajSamochodfb(BazaSamochodow* bazaSamochodow,char napis[],int rozmiar, ch
     strcpy(wynik,"");
     strncpy(wynik,napis,i);
     strcpy(przebieg2,"");
-    szyfruj(przebieg2,wynik,i,haslo,rozmiarHasla);
+    odszyfruj(przebieg2,wynik,i,haslo,rozmiarHasla);
 
     if (!sprawdzNazwe(przebieg2, i)) {
         return;
     }
+    przebieg2[i]='\0';
     if (!czyIstniejeKatalog(bazaSamochodow, katalog, rozmiar)) {
         stworzKatalog(bazaSamochodow, katalog);
     }
-    stworzSamochod(bazaSamochodow, katalog, napis, id, przebieg);
+    stworzSamochod(bazaSamochodow, katalog, przebieg2, id, przebieg);
+    strcpy(przebieg2,"");
+
 }
 
 
@@ -319,7 +335,7 @@ void odczytZPlikuBin(char nazwa[], BazaSamochodow *bazaSamochodow) {
     while(!wczytajhaslo(haslo,rozmiarhasla));
     char samochod[4 * DLUGOSC];
     while (!feof(file)) {
-        fgets(samochod, 4 * DLUGOSC, file);
+        fgets(samochod, 4 * DLUGOSC+4, file);
         int r = rozmiar(samochod);
         dodajSamochodfb(bazaSamochodow, samochod, r,haslo,rozmiarhasla);
     }
@@ -357,7 +373,7 @@ int odczytajhaslo(char haslo[],char tekst[])
     {
         ++i;
     }
-    szyfruj(haslo,tekst,i,"a",1);
+    odszyfruj(haslo,tekst,i,"a",1);
     return i;
 }
 
