@@ -115,8 +115,14 @@ void usuniecieKatalogu2(BazaSamochodow* bazaSamochodow,int nrElementu)
     }
     bazaSamochodow->iloscSamochodow_-=element->katalog_->dlugosc_;
     usunCalyKatalog(element->katalog_);
-    element->poprzedni_->nastepny_=element->nastepny_;
-    element->nastepny_->poprzedni_=element->poprzedni_;
+    if(element->poprzedni_)
+        element->poprzedni_->nastepny_=element->nastepny_;
+    else
+        bazaSamochodow->pierwszy_=element->nastepny_;
+    if(element->nastepny_)
+         element->nastepny_->poprzedni_=element->poprzedni_;
+    else
+        bazaSamochodow->ostatni_=element->poprzedni_;
     free(element);
     bazaSamochodow->dlugosc_--;
 }
